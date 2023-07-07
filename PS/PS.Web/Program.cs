@@ -1,6 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using PS.BAL.Helpers;
+using PS.BAL.Services;
+using PS.DAL.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+#region Database Configuration
+builder.Services.AddDbContext<PSDbContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MigrationDB")));
+#endregion
+
+#region AutoMapper Configuration
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+#endregion
+
+#region Services
+builder.Services.AddSingleton(typeof(CustomerService));
+#endregion
 
 builder.Services.AddControllersWithViews();
 
