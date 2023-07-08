@@ -3,27 +3,41 @@ import React, { useEffect, useState } from 'react'
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
-    const getCustomers = async () => {
-        var requestOpt = {
-            method: "GET",
-            url: "api/Customer/GetCustomers",
-        };
-        axios(requestOpt)
-        .then(res => {
-            if(res.status === 200)
-                setCustomerList(res);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
 
     useEffect(() => {
-        getCustomers();
-    }, customerList)
+        axios.get("api/Customer/GetCustomers")
+            .then(res => { 
+                setCustomerList(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, []);
 
     return (
-        <div>Customer</div>
+        <div>
+            <h1>Customers</h1>
+            <table className='table'>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contact No.</th>
+                        <th>Email Address</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {customerList.map(item => (
+                        <tr key={item.internalID}>
+                            <td>{item.name}</td>
+                            <td>{item.contactNo}</td>
+                            <td>{item.email}</td>
+                            <td>{item.status}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
 

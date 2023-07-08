@@ -19,7 +19,7 @@ namespace PS.BAL.Services
 
         public IEnumerable<CustomerDTO> GetAll()
         {
-            var result = _uow.CustomerRepository.GetAll();
+            var result = _uow.CustomerRepository.GetAll().OrderBy(data => data.LastName);
             return _mapper.Map<IEnumerable<CustomerDTO>>(result);
         }
 

@@ -10,16 +10,16 @@ namespace PS.Web.Contractors
             _logger = logger;
         }
 
-        public IActionResult OkResult(string message, object data)
+        public IActionResult OkResult(object data)
         {
-            _logger.LogInformation(message);
-            return Ok(new { Message = message, Data = data });
+            _logger.LogInformation("Request has been processed successfully");
+            return Ok(data);
         }
 
         public IActionResult OkResult(string message)
         {
-            _logger.LogInformation(message);
-            return Ok(new { Message = message });
+            _logger.LogInformation("Request has been processed successfully");
+            return Ok(message);
         }
 
         public IActionResult ErrorResult(Exception exception)

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PS.Common.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace PS.BAL.Models
 {
@@ -38,5 +39,10 @@ namespace PS.BAL.Models
         public string? ModifiedByName { get; set; }
 
         public IEnumerable<CarDTO>? Cars { get; set; } 
+
+        public string Name
+        {
+            get {  return string.Format("{0}, {1}", LastName.ToTitleCase(), FirstName.ToTitleCase()); }
+        }
     }
 }

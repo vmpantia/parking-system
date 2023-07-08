@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS.Web", "PS.Web\PS.Web.csproj", "{A4D96D78-D44E-4796-8E53-37732DD75340}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PS.Web", "PS.Web\PS.Web.csproj", "{A4D96D78-D44E-4796-8E53-37732DD75340}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS.DAL", "PS.DAL\PS.DAL.csproj", "{5901B16E-49F6-46BE-A738-00266F708F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PS.DAL", "PS.DAL\PS.DAL.csproj", "{5901B16E-49F6-46BE-A738-00266F708F38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS.BAL", "PS.BAL\PS.BAL.csproj", "{EC524EB4-A576-413D-8740-AEED26595876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PS.BAL", "PS.BAL\PS.BAL.csproj", "{EC524EB4-A576-413D-8740-AEED26595876}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS.Common", "PS.Common\PS.Common.csproj", "{C21CC0D9-DAB6-4DC0-BE73-88F48B28CCA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{EC524EB4-A576-413D-8740-AEED26595876}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC524EB4-A576-413D-8740-AEED26595876}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC524EB4-A576-413D-8740-AEED26595876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C21CC0D9-DAB6-4DC0-BE73-88F48B28CCA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C21CC0D9-DAB6-4DC0-BE73-88F48B28CCA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C21CC0D9-DAB6-4DC0-BE73-88F48B28CCA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C21CC0D9-DAB6-4DC0-BE73-88F48B28CCA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

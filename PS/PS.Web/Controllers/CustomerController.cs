@@ -21,7 +21,7 @@ namespace PS.Web.Controllers
             try
             {
                 var result = _customer.GetAll();
-                return OkResult("Your request has been process successfully!", result);
+                return OkResult(result);
             }
             catch (Exception ex) {
                 return ErrorResult(ex);
@@ -34,7 +34,7 @@ namespace PS.Web.Controllers
             try
             {
                 var result = _customer.GetByQuery(query);
-                return OkResult("Your request has been process successfully!", result);
+                return OkResult(result);
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace PS.Web.Controllers
             try
             {
                 var result = _customer.GetByID(internalID);
-                return OkResult("Your request has been process successfully!", result);
+                return OkResult(result);
             }
             catch (Exception ex)
             {
@@ -75,7 +75,7 @@ namespace PS.Web.Controllers
         {
             try
             {
-                await _customer.SaveDataAsync(inputCustomer);
+                await _customer.DeleteDataAsync(inputCustomer);
                 return OkResult("Your request has been process successfully!");
             }
             catch (Exception ex)
