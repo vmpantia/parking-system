@@ -1,5 +1,5 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -17,23 +17,39 @@ const Customer = () => {
     return (
         <div>
             <h1>Customers</h1>
-            <table className='table'>
+            <table className='cstm-table'>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Contact No.</th>
-                        <th>Email Address</th>
+                        <th>Customer</th>
                         <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Modified Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {customerList.map(item => (
-                        <tr key={item.internalID}>
-                            <td>{item.name}</td>
-                            <td>{item.contactNo}</td>
-                            <td>{item.email}</td>
-                            <td>{item.status}</td>
-                        </tr>
+                    {customerList.map((data) => (
+                        <>
+                            <tr key={data.internalID}>
+                                <td>
+                                    <div className='cstm-data-detail'>
+                                        <span className='name'>{data.name}</span>
+                                        <div className='other'>
+                                            <span>
+                                                <i class="bi bi-telephone-fill" />
+                                                {data.contactNo}
+                                            </span>
+                                            <span>
+                                                <i class="bi bi-envelope-fill"></i>
+                                                {data.email}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{data.statusDescription}</td>
+                                <td>{data.createdDate}</td>
+                                <td>{data.modifiedDate}</td>
+                            </tr>
+                        </>
                     ))}
                 </tbody>
             </table>

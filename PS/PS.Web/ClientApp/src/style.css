@@ -1,0 +1,45 @@
+.cstm-table {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.cstm-table td {
+    padding: 10px 15px;
+}
+
+.cstm-table th {
+    padding: 5px 15px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.cstm-table tbody tr {
+    border-bottom: 1px solid gainsboro;
+}
+
+.cstm-table tbody tr:nth-child(even) {
+    background-color: whitesmoke;
+}
+
+.cstm-table tbody tr:hover {
+    transform: scale(1.01);
+}
+
+.cstm-table .cstm-data-detail .name {
+    display: flex;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.cstm-table .cstm-data-detail .other {
+    display: flex;
+    font-size: 13px;
+}
+
+.cstm-table .cstm-data-detail .other span {
+    padding: 0px 7px;
+}
+
+.cstm-table .cstm-data-detail .other i {
+    margin-right: 7px;
+}

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PS.Common.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace PS.BAL.Models
 {
@@ -27,7 +28,6 @@ namespace PS.BAL.Models
 
         [Range(0, 3)]
         public int Status { get; set; }
-        public string? StatusDescription { get; set; }
 
         public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -36,5 +36,10 @@ namespace PS.BAL.Models
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string? ModifiedByName { get; set; }
+
+        public string StatusDescription
+        {
+            get { return Parser.ParseStatus(Status); }
+        }
     }
 }

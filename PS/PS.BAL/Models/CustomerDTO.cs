@@ -1,4 +1,5 @@
 ﻿using PS.Common.Extensions;
+using PS.Common.Utilities;
 using System.ComponentModel.DataAnnotations;
 
 namespace PS.BAL.Models
@@ -28,7 +29,6 @@ namespace PS.BAL.Models
 
         [Range(0, 3)]
         public int Status { get; set; }
-        public string? StatusDescription { get; set; }
 
         public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -43,6 +43,11 @@ namespace PS.BAL.Models
         public string Name
         {
             get {  return string.Format("{0}, {1}", LastName.ToTitleCase(), FirstName.ToTitleCase()); }
+        }
+
+        public string StatusDescription
+        {
+            get { return Parser.ParseStatus(Status); }
         }
     }
 }
