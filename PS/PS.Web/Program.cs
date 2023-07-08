@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using PS.BAL.Contractors;
 using PS.BAL.Helpers;
+using PS.BAL.Models;
 using PS.BAL.Services;
 using PS.DAL.Database;
 
@@ -17,7 +19,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 #endregion
 
 #region Services
-builder.Services.AddSingleton(typeof(CustomerService));
+builder.Services.AddScoped<IService<CustomerDTO>, CustomerService>();
 #endregion
 
 builder.Services.AddControllersWithViews();

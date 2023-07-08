@@ -16,6 +16,12 @@ namespace PS.Web.Contractors
             return Ok(new { Message = message, Data = data });
         }
 
+        public IActionResult OkResult(string message)
+        {
+            _logger.LogInformation(message);
+            return Ok(new { Message = message });
+        }
+
         public IActionResult ErrorResult(Exception exception)
         {
             _logger.LogError(exception.StackTrace);
