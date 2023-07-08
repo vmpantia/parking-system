@@ -3,7 +3,9 @@ using PS.BAL.Contractors;
 using PS.BAL.Helpers;
 using PS.BAL.Models;
 using PS.BAL.Services;
+using PS.DAL.Contractors;
 using PS.DAL.Database;
+using PS.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 #endregion
 
 #region Services
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IService<CustomerDTO>, CustomerService>();
 #endregion
 

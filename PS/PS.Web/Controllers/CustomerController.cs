@@ -5,6 +5,8 @@ using PS.Web.Contractors;
 
 namespace PS.Web.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CustomerController : BaseController
     {
         private readonly IService<CustomerDTO> _customer;
