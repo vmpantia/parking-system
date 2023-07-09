@@ -1,6 +1,6 @@
-import './Loader.css'
+import './PSLoader.css'
 
-const Loader = () => {
+const PSLoader = () => {
     return (
         <div className="loader">
             <div className="shape">
@@ -24,4 +24,4 @@ const Loader = () => {
     )
 }
 
-export default Loader
+export default PSLoader

@@ -1,13 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Button, FormCheck } from 'react-bootstrap';
-import { PencilSquare, TrashFill } from 'react-bootstrap-icons';
+import { EnvelopeFill, PencilSquare, TelephoneFill, TrashFill } from 'react-bootstrap-icons';
 
 //Utilities
 import { parseDate } from '../utilities/parser';
 
 //Components
-import Loader from '../components/Loader/Loader.js';
+import PSLoader from '../components/Loader/PSLoader.js';
+import { PSTable, PSHead, PSBody, PSRow, PSColumnHeader, PSColumnData, PSIconWithSpan, PSStatusBadge  } from '../components/Table/PSTable';
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -32,79 +33,65 @@ const Customer = () => {
 
     return (
         <div>
-            {isLoading && <Loader />}
+            {/* Loading Screen */}
+            {isLoading && <PSLoader />}
+            
             <h1>Customers</h1>
-            <table className='cstm-table'>
-                <thead>
-                    <tr>
-                        <th className='cstm-column-select'>
+            <PSTable>
+                <PSHead>
+                    <PSRow>
+                        <PSColumnHeader id='select'>
                             <FormCheck />
-                        </th>
-                        <th>Customer</th>
-                        <th className='cstm-column-status'>Status</th>
-                        <th className='cstm-column-date'>Created Date</th>
-                        <th className='cstm-column-date'>Modified Date</th>
-                        <th className='cstm-column-action'>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+                        </PSColumnHeader>
+                        <PSColumnHeader name='Customer' />
+                        <PSColumnHeader id='status' name='Status' />
+                        <PSColumnHeader id='date' name='Created Date' />
+                        <PSColumnHeader id='date' name='Modified Date' />
+                        <PSColumnHeader id='action' name='Action' />
+                    </PSRow>
+                </PSHead>
+                <PSBody>
                     {
                         customerList.length === 0 ? 
-                            <tr>
-                                <td colSpan="6">No records found in the system.</td>
-                            </tr>
+                            <PSRow key={0}>
+                                <PSColumnData colSpan='6' value='No records found in the system'/>
+                            </PSRow>
                         :
                         customerList.map((data) => (
-                            <>
-                                <tr key={data.internalID}>
-                                    {/* Select Column */}
-                                    <td className='cstm-column-select'>
-                                        <FormCheck />
-                                    </td>
-
-                                    {/* Customer Column */}
-                                    <td>
-                                        <div className='cstm-data-detail'>
-                                            <span className='name'>{data.name}</span>
-                                            <div className='other'>
-                                                <span>
-                                                    <i className='bi bi-telephone-fill' />
-                                                    {data.contactNo}
-                                                </span>
-                                                <span>
-                                                    <i className='bi bi-envelope-fill'></i>
-                                                    {data.email}
-                                                </span>
-                                            </div>
+                            <PSRow key={data.internalID}>
+                                <PSColumnData id='select' >
+                                    <FormCheck />
+                                </PSColumnData>
+                                <PSColumnData>
+                                    <div className='cstm-data-detail'>
+                                        <span className='name'>{data.name}</span>
+                                        <div className='other'>
+                                            <PSIconWithSpan value={data.contactNo}>
+                                                <TelephoneFill style={{marginRight: '5px'}} />
+                                            </PSIconWithSpan>
+                                            <PSIconWithSpan value={data.email}>
+                                                <EnvelopeFill style={{marginRight: '5px'}} />
+                                            </PSIconWithSpan>
                                         </div>
-                                    </td>
-
-                                    {/* Status Column */}
-                                    <td className='cstm-column-status'>
-                                        <div className={`cstm-status status-${data.status}`}>
-                                            {data.statusDescription}
-                                        </div>
-                                    </td>
-
-                                    {/* Date Column */}
-                                    <td className='cstm-column-date'>{parseDate(data.createdDate)}</td>
-                                    <td className='cstm-column-date'>{parseDate(data.modifiedDate)}</td>
-
-                                    {/* Action Column */}
-                                    <td className='cstm-column-action'>
-                                        <Button variant='outline-primary' style={{marginRight: '5px'}} size='sm'>
-                                            <PencilSquare />
-                                        </Button>
-                                        <Button variant='outline-danger' size='sm'>
-                                            <TrashFill />
-                                        </Button>
-                                    </td>
-                                </tr>
-                            </>
-                        ))
-                    }
-                </tbody>
-            </table>
+                                    </div>
+                                </PSColumnData>
+                                <PSColumnData id='status'>
+                                    <PSStatusBadge id={data.status} value={data.statusDescription} />
+                                </PSColumnData>
+                                <PSColumnData id='date' value={parseDate(data.createdDate)} />
+                                <PSColumnData id='date' value={parseDate(data.modifiedDate)} />
+                                <PSColumnData>
+                                    <Button variant='outline-primary' style={{marginRight: '5px'}} size='sm'>
+                                        <PencilSquare />
+                                    </Button>
+                                    <Button variant='outline-danger' size='sm'>
+                                        <TrashFill />
+                                    </Button>
+                                </PSColumnData>
+                            </PSRow>
+                    ))}
+                </PSBody>
+            </PSTable>
         </div>
     )
 }
