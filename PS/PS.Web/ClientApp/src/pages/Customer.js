@@ -8,7 +8,8 @@ import { parseDate } from '../utilities/parser';
 
 //Components
 import PSLoader from '../components/Loader/PSLoader.js';
-import { PSTable, PSHead, PSBody, PSRow, PSColumnHeader, PSColumnData, PSIconWithSpan, PSStatusBadge  } from '../components/Table/PSTable';
+import { PSTable, PSHead, PSBody, PSRow, PSHeader, PSData, PSIconWithSpan, PSCustomerData } from '../components/Table/PSTable';
+import { PSStatusBadge } from '../components/Badge/PSBadge';
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -87,57 +88,53 @@ const Customer = () => {
             <PSTable>
                 <PSHead>
                     <PSRow>
-                        <PSColumnHeader id='select'>
+                        <PSHeader style='select'>
                             <FormCheck />
-                        </PSColumnHeader>
-                        <PSColumnHeader name='Customer' />
-                        <PSColumnHeader id='status' name='Status' />
-                        <PSColumnHeader id='date' name='Created Date' />
-                        <PSColumnHeader id='date' name='Modified Date' />
-                        <PSColumnHeader id='action' name='Action' />
+                        </PSHeader>
+                        <PSHeader value='Customer' />
+                        <PSHeader style='status' value='Status' />
+                        <PSHeader style='date' value='Created Date' />
+                        <PSHeader style='date' value='Modified Date' />
+                        <PSHeader style='action' value='Action' />
                     </PSRow>
                 </PSHead>
                 <PSBody>
                     {
                         customerList.length === 0 ? 
                             <PSRow key={0}>
-                                <PSColumnData colSpan='6' value='No records found in the system'/>
+                                <PSData colSpan='6' value='No records found in the system'/>
                             </PSRow>
                         :
                         customerList.map((data) => (
-                            <>
-                                <PSRow key={data.internalID} subTable={generateSubTableForCustomerCars(data.cars)}>
-                                    <PSColumnData id='select' >
-                                        <FormCheck />
-                                    </PSColumnData>
-                                    <PSColumnData>
-                                        <div className='cstm-data-detail'>
-                                            <span className='name'>{data.name}</span>
-                                            <div className='other'>
-                                                <PSIconWithSpan value={data.contactNo}>
-                                                    <TelephoneFill style={{marginRight: '5px'}} />
-                                                </PSIconWithSpan>
-                                                <PSIconWithSpan value={data.email}>
-                                                    <EnvelopeFill style={{marginRight: '5px'}} />
-                                                </PSIconWithSpan>
-                                            </div>
-                                        </div>
-                                    </PSColumnData>
-                                    <PSColumnData id='status'>
-                                        <PSStatusBadge id={data.status} value={data.statusDescription} />
-                                    </PSColumnData>
-                                    <PSColumnData id='date' value={parseDate(data.createdDate)} />
-                                    <PSColumnData id='date' value={parseDate(data.modifiedDate)} />
-                                    <PSColumnData id='action'>
-                                        <Button variant='outline-primary' size='sm' style={{marginRight: '5px'}}>
-                                            <PencilSquare />
-                                        </Button>
-                                        <Button variant='outline-danger' size='sm'>
-                                            <TrashFill />
-                                        </Button>
-                                    </PSColumnData>
-                                </PSRow>
-                            </>
+                        <>
+                            <PSRow key={data.internalID} subTable={generateSubTableForCustomerCars(data.cars)}>
+                                <PSData style='select' > 
+                                    <FormCheck /> 
+                                </PSData>
+
+                                <PSCustomerData 
+                                    name={data.name} 
+                                    contactNo={data.contactNo} 
+                                    email={data.email} /> 
+
+                                <PSData style='status'>
+                                    <PSStatusBadge id={data.status} value={data.statusDescription}/>
+                                </PSData>
+
+                                <PSData style='date' value={parseDate(data.createdDate)} />
+                                <PSData style='date' value={parseDate(data.modifiedDate)} />
+
+                                <PSData style='action'>
+                                    <Button variant='outline-primary' size='sm' style={{marginRight: '5px'}}>
+                                        <PencilSquare />
+                                    </Button>
+                                    <Button variant='outline-danger' size='sm'>
+                                        <TrashFill />
+                                    </Button>
+                                </PSData>
+                                
+                            </PSRow>
+                        </>
                     ))}
                 </PSBody>
             </PSTable>

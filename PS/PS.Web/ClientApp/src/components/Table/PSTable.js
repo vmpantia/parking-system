@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { EnvelopeFill, TelephoneFill } from 'react-bootstrap-icons'
+
 import './PSTable.css'
 
 export const PSTable = (props) => {
     return (
-        <table className='cstm-table'>
+        <table className='ps-tbl'>
             {props.children}
         </table>
     )
@@ -11,7 +13,7 @@ export const PSTable = (props) => {
 
 export const PSHead = (prop) => {
     return (
-        <thead>
+        <thead className='ps-tbl-head'>
             {prop.children}
         </thead>
     )
@@ -19,7 +21,7 @@ export const PSHead = (prop) => {
 
 export const PSBody = (props) => {
     return (
-        <tbody>
+        <tbody className='ps-tbl-body'>
             {props.children}
         </tbody>
     )
@@ -34,7 +36,7 @@ export const PSRow = (props) => {
 
     return (
         <>
-            <tr onClick={toggleExpanded}>
+            <tr className='ps-tbl-row' onClick={toggleExpanded}>
                 {props.children}
             </tr>
             { isExpanded &&  props.subTable }
@@ -42,37 +44,43 @@ export const PSRow = (props) => {
     )
 }
 
-export const PSColumnHeader = (props) => {
+export const PSHeader = (props) => {
     return (
-        <th className={props.id && `cstm-column-${props.id}`}>
+        <th className={`ps-tbl-header ${props.id && `ps-tbl-col-${props.style}`}`}>
             {props.children}
-            {props.name}
+            {props.value}
         </th>
     )
 }
 
-export const PSColumnData = (props) => {
+export const PSData = (props) => {
     return (
-        <td className={props.id && `cstm-column-${props.id}`} colSpan={props.colSpan}>
+        <td className={`ps-tbl-data ${props.id && `ps-tbl-col-${props.style}`}`} colSpan={props.colSpan}>
             {props.children}
             {props.value}
         </td>
     )
 }
 
-export const PSIconWithSpan = (props) => {
+export const PSCustomerData = (props) => {
     return (
-        <span>
-            {props.children}
-            {props.value}
-        </span>
-    )
-}
+        <PSData>
+            <div className='customer-data'>
+                <span className='name'>
+                    {props.name}
+                </span>
+                <div className='other'>
+                    <span>
+                        <TelephoneFill style={{marginRight: '5px'}} />
+                        {props.contactNo}
+                    </span>
 
-export const PSStatusBadge = (props) => {
-    return (
-        <div className={`cstm-status status-${props.id}`}>
-            {props.value}
-        </div>
+                    <span>
+                        <EnvelopeFill style={{marginRight: '5px'}} />
+                        {props.email}
+                    </span>
+                </div>
+            </div>
+        </PSData>
     )
 }
