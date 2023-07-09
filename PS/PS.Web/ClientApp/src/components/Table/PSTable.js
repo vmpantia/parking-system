@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './PSTable.css'
 
 export const PSTable = (props) => {
@@ -25,10 +26,19 @@ export const PSBody = (props) => {
 }
 
 export const PSRow = (props) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleExpanded = () => {
+        setIsExpanded(!isExpanded);
+    }
+
     return (
-        <tr>
-            {props.children}
-        </tr>
+        <>
+            <tr onClick={toggleExpanded}>
+                {props.children}
+            </tr>
+            { isExpanded &&  props.subTable }
+        </>
     )
 }
 
