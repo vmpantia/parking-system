@@ -1,28 +1,50 @@
 .cstm-table {
     width: 100%;
-    margin-bottom: 10px;
+    margin: 20px 0px;
 }
 
 .cstm-table td {
     padding: 10px 15px;
+    border-bottom: 1px solid gainsboro;
 }
 
 .cstm-table th {
     padding: 5px 15px;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
-}
-
-.cstm-table tbody tr {
-    border-bottom: 1px solid gainsboro;
+    border-bottom: 2px solid gainsboro;
 }
 
 .cstm-table tbody tr:nth-child(even) {
     background-color: whitesmoke;
 }
 
-.cstm-table tbody tr:hover {
+/* .cstm-table tbody tr:hover {
     transform: scale(1.01);
+} */
+
+.cstm-table .cstm-column-select {
+    text-align: center;
+    width: 50px;
+}
+
+.cstm-table .cstm-column-status {
+    text-align: center;
+    width: 110px;
+}
+
+.cstm-table .cstm-column-date {
+    text-align: center;
+    width: 150px;
+}
+
+.cstm-table .cstm-column-status .cstm-status {
+    display:inline-block;
+    width: auto;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 1px 5px;
 }
 
 .cstm-table .cstm-data-detail .name {
@@ -42,4 +64,17 @@
 
 .cstm-table .cstm-data-detail .other i {
     margin-right: 7px;
+}
+
+.status-0 {
+    color: white;
+    background-color: rgb(31, 158, 31);
+}
+.status-1 {
+    color: white;
+    background-color: rgb(131, 125, 125);
+}
+.status-2 {
+    color: white;
+    background-color: rgb(235, 77, 77);
 }

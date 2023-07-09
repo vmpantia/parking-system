@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { parseDate } from '../utilities/parser';
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -20,16 +21,24 @@ const Customer = () => {
             <table className='cstm-table'>
                 <thead>
                     <tr>
+                        <th className='cstm-column-select'>
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        </th>
                         <th>Customer</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
-                        <th>Modified Date</th>
+                        <th className='cstm-column-status'>Status</th>
+                        <th className='cstm-column-date'>Created Date</th>
+                        <th className='cstm-column-date'>Modified Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     {customerList.map((data) => (
                         <>
                             <tr key={data.internalID}>
+                                {/* Select Column */}
+                                <td className='cstm-column-select'>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                </td>
+                                {/* Customer Column */}
                                 <td>
                                     <div className='cstm-data-detail'>
                                         <span className='name'>{data.name}</span>
@@ -45,9 +54,14 @@ const Customer = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td>{data.statusDescription}</td>
-                                <td>{data.createdDate}</td>
-                                <td>{data.modifiedDate}</td>
+                                {/* Status Column */}
+                                <td className='cstm-column-status'>
+                                    <div className={`cstm-status status-${data.status}`}>
+                                        {data.statusDescription}
+                                    </div>
+                                </td>
+                                <td className='cstm-column-date'>{parseDate(data.createdDate)}</td>
+                                <td className='cstm-column-date'>{parseDate(data.modifiedDate)}</td>
                             </tr>
                         </>
                     ))}

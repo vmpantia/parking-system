@@ -6,7 +6,6 @@ namespace PS.BAL.Models
 {
     public class CustomerDTO
     {
-        [Key]
         public Guid InternalID { get; set; }
 
         [Required, StringLength(50)]
@@ -32,22 +31,20 @@ namespace PS.BAL.Models
 
         public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string? CreatedByName { get; set; }
 
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public string? ModifiedByName { get; set; }
-
-        public IEnumerable<CarDTO>? Cars { get; set; } 
 
         public string Name
         {
             get {  return string.Format("{0}, {1}", LastName.ToTitleCase(), FirstName.ToTitleCase()); }
         }
-
+        public IEnumerable<CarDTO>? Cars { get; set; }
         public string StatusDescription
         {
             get { return Parser.ParseStatus(Status); }
         }
+        public string? CreatedByName { get; set; }
+        public string? ModifiedByName { get; set; }
     }
 }
