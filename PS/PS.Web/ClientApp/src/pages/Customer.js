@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Button, FormCheck } from 'react-bootstrap';
-import { CaretDownFill, ChevronDown, EnvelopeFill, PencilSquare, TelephoneFill, TrashFill } from 'react-bootstrap-icons';
+import { EnvelopeFill, PencilSquare, TelephoneFill, TrashFill } from 'react-bootstrap-icons';
 
 //Utilities
 import { parseDate } from '../utilities/parser';
@@ -13,7 +13,6 @@ import { PSTable, PSHead, PSBody, PSRow, PSColumnHeader, PSColumnData, PSIconWit
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [isShowSubTable, setIsShowSubTable] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
