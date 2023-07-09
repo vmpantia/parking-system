@@ -1,0 +1,18 @@
+.ps-no-records-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ps-no-records {
+    text-align: center;
+}
+
+.ps-no-records .icon {
+    font-size: 30px;
+}
+.ps-no-records .message {
+    margin-top: 10px;
+    display: flex;
+    font-size: 13px;
+    font-weight: 500;
+}

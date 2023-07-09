@@ -11,6 +11,7 @@ import PSLoader from '../components/Loader/PSLoader.js';
 import { PSTable, PSHead, PSBody, PSRow, PSHeader, PSData, PSIconWithSpan, PSCustomerData } from '../components/Table/PSTable';
 import { PSStatusBadge } from '../components/Badge/PSBadge';
 import { PSSubBody, PSSubData, PSSubHead, PSSubHeader, PSSubRow, PSSubTable } from '../components/Table/PSSubTable';
+import PSNoRecordsFound from '../components/Table/PSNoRecordsFound';
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -50,7 +51,9 @@ const Customer = () => {
                         <PSSubBody>
                             {cars === null || cars.length === 0 ?
                                 (<PSSubRow>
-                                        <PSSubData colSpan='6' value='No records found in the system'/>
+                                        <PSSubData colSpan='5'>
+                                            <PSNoRecordsFound /> 
+                                        </PSSubData>
                                 </PSSubRow>)
                                 :
                                 (cars.map(data => (
@@ -92,7 +95,9 @@ const Customer = () => {
                     {
                         customerList.length === 0 ? 
                             <PSRow key={0}>
-                                <PSData colSpan='6' value='No records found in the system'/>
+                                <PSData colSpan='6'>
+                                    <PSNoRecordsFound /> 
+                                </PSData>
                             </PSRow>
                         :
                         customerList.map((data) => (

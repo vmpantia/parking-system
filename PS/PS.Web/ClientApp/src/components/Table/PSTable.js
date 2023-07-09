@@ -48,7 +48,7 @@ export const PSRow = (props) => {
 
 export const PSHeader = (props) => {
     return (
-        <th className={`ps-tbl-header ${props.id && `ps-tbl-col-${props.style}`}`}>
+        <th className={`ps-tbl-header ${props.style && `ps-tbl-col-${props.style}`}`}>
             {props.children}
             {props.value}
         </th>
@@ -57,7 +57,7 @@ export const PSHeader = (props) => {
 
 export const PSData = (props) => {
     return (
-        <td className={`ps-tbl-data ${props.id && `ps-tbl-col-${props.style}`}`} colSpan={props.colSpan}>
+        <td className={`ps-tbl-data ${props.style && `ps-tbl-col-${props.style}`}`} colSpan={props.colSpan}>
             {props.children}
             {props.value}
         </td>

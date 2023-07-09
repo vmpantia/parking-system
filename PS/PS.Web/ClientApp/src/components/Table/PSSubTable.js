@@ -45,7 +45,7 @@ export const PSSubHeader = (props) => {
 
 export const PSSubData = (props) => {
     return (
-        <td className='ps-sub-tbl-data'>
+        <td className='ps-sub-tbl-data' colSpan={props.colSpan}>
             {props.children}
             {props.value}
         </td>
