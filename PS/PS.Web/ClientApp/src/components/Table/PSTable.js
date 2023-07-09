@@ -5,15 +5,17 @@ import './PSTable.css'
 
 export const PSTable = (props) => {
     return (
-        <table className='ps-tbl'>
-            {props.children}
-        </table>
+        <div className='ps-tbl-container'>
+            <table className='ps-tbl'>
+                {props.children}
+            </table>
+        </div>
     )
 }
 
 export const PSHead = (prop) => {
     return (
-        <thead className='ps-tbl-head'>
+        <thead>
             {prop.children}
         </thead>
     )
@@ -21,7 +23,7 @@ export const PSHead = (prop) => {
 
 export const PSBody = (props) => {
     return (
-        <tbody className='ps-tbl-body'>
+        <tbody>
             {props.children}
         </tbody>
     )
@@ -36,7 +38,7 @@ export const PSRow = (props) => {
 
     return (
         <>
-            <tr className='ps-tbl-row' onClick={toggleExpanded}>
+            <tr onClick={toggleExpanded}>
                 {props.children}
             </tr>
             { isExpanded &&  props.subTable }

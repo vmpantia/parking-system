@@ -1,0 +1,28 @@
+.ps-sub-tbl-container {
+    background-color: white;
+    border: 1px dashed #ced4da;
+    border-radius: 10px;
+    padding: 15px;
+
+    animation-duration: 0.6s;
+    animation-name: fade-in;
+    
+    font-size: 13px;
+}
+.ps-sub-tbl-header {
+    border-bottom: 1px dashed #ced4da;
+    padding: 0px 15px 5px 15px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.ps-sub-tbl-data  {
+    padding: 5px 15px;
+}
+.ps-sub-tbl-row:last-child .ps-sub-tbl-data{
+    padding: 5px 15px 0px 15px;
+}
+
+@keyframes fade-in {
+    from { opacity: 0;  }
+    to { opacity: 1; }
+}

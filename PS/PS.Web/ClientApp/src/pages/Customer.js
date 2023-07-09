@@ -10,6 +10,7 @@ import { parseDate } from '../utilities/parser';
 import PSLoader from '../components/Loader/PSLoader.js';
 import { PSTable, PSHead, PSBody, PSRow, PSHeader, PSData, PSIconWithSpan, PSCustomerData } from '../components/Table/PSTable';
 import { PSStatusBadge } from '../components/Badge/PSBadge';
+import { PSSubBody, PSSubData, PSSubHead, PSSubHeader, PSSubRow, PSSubTable } from '../components/Table/PSSubTable';
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -32,50 +33,39 @@ const Customer = () => {
         });
     }
 
-    const generateSubTableForCustomerCars = (cars) => {
+    const loadTableForCustomerCars = (ownerName, cars) => {
         return (
-            <tr>
-                <td colSpan='6'>
-                    <div className='cstm-sub-table'>
-                        <span>Car List</span>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Plane No.</th>
-                                    <th>Year Model</th>
-                                    <th>Color</th>
-                                    <th>Type</th>
-                                    <th>Make</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>NBW6933</td>
-                                    <td>2016</td>
-                                    <td>Gray</td>
-                                    <td>MUV</td>
-                                    <td>Toyota</td>
-                                </tr>
-                                <tr>
-                                    <td>NBW6933</td>
-                                    <td>2016</td>
-                                    <td>Gray</td>
-                                    <td>MUV</td>
-                                    <td>Toyota</td>
-                                </tr>
-                                <tr>
-                                    <td>NBW6933</td>
-                                    <td>2016</td>
-                                    <td>Gray</td>
-                                    <td>MUV</td>
-                                    <td>Toyota</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                </td>
-            </tr>
+            <PSRow>
+                <PSData colSpan='6'>
+                    <PSSubTable>
+                        <PSSubHead>
+                            <PSSubRow>
+                                <PSSubHeader value='Plate No.'/>
+                                <PSSubHeader value='Year Model'/>
+                                <PSSubHeader value='Color'/>
+                                <PSSubHeader value='Type'/>
+                                <PSSubHeader value='Make'/>
+                            </PSSubRow>
+                        </PSSubHead>
+                        <PSSubBody>
+                            {cars === null || cars.length === 0 ?
+                                (<PSSubRow>
+                                        <PSSubData colSpan='6' value='No records found in the system'/>
+                                </PSSubRow>)
+                                :
+                                (cars.map(data => (
+                                        <PSSubRow key={data.internalID}>
+                                            <PSSubData value={data.yearModel}/>
+                                            <PSSubData value={data.color}/>
+                                            <PSSubData value={data.type}/>
+                                            <PSSubData value={data.make}/>
+                                        </PSSubRow>
+                                    )))
+                            }
+                        </PSSubBody>
+                    </PSSubTable>
+                </PSData>
+            </PSRow>
         )
     }
 
@@ -107,7 +97,7 @@ const Customer = () => {
                         :
                         customerList.map((data) => (
                         <>
-                            <PSRow key={data.internalID} subTable={generateSubTableForCustomerCars(data.cars)}>
+                            <PSRow key={data.internalID} subTable={loadTableForCustomerCars(data.name, data.cars)}>
                                 <PSData style='select' > 
                                     <FormCheck /> 
                                 </PSData>
