@@ -38,6 +38,10 @@
     width: 150px;
 }
 
+.cstm-table .cstm-column-action {
+    text-align: center;
+}
+
 .cstm-table .cstm-column-status .cstm-status {
     display:inline-block;
     width: auto;
