@@ -39,33 +39,29 @@ const Customer = () => {
             <PSRow>
                 <PSData colSpan='6'>
                     <PSSubTable>
-                        <PSSubHead>
-                            <PSSubRow>
-                                <PSSubHeader value='Plate No.'/>
-                                <PSSubHeader value='Year Model'/>
-                                <PSSubHeader value='Color'/>
-                                <PSSubHeader value='Type'/>
-                                <PSSubHeader value='Make'/>
-                            </PSSubRow>
-                        </PSSubHead>
-                        <PSSubBody>
-                            {cars === null || cars.length === 0 ?
-                                (<PSSubRow>
-                                        <PSSubData colSpan='5'>
-                                            <PSNoRecordsFound /> 
-                                        </PSSubData>
-                                </PSSubRow>)
-                                :
-                                (cars.map(data => (
-                                        <PSSubRow key={data.internalID}>
-                                            <PSSubData value={data.yearModel}/>
-                                            <PSSubData value={data.color}/>
-                                            <PSSubData value={data.type}/>
-                                            <PSSubData value={data.make}/>
-                                        </PSSubRow>
-                                    )))
-                            }
-                        </PSSubBody>
+                        <PSSubRow>
+                            <PSSubHeader value='Plate No.'/>
+                            <PSSubHeader value='Year Model'/>
+                            <PSSubHeader value='Color'/>
+                            <PSSubHeader value='Type'/>
+                            <PSSubHeader value='Make'/>
+                        </PSSubRow>
+                        {cars === null || cars.length === 0 ?
+                            (<PSSubRow>
+                                    <PSSubData colSpan='5'>
+                                        <PSNoRecordsFound /> 
+                                    </PSSubData>
+                            </PSSubRow>)
+                            :
+                            (cars.map(data => (
+                                    <PSSubRow key={data.internalID}>
+                                        <PSSubData value={data.yearModel}/>
+                                        <PSSubData value={data.color}/>
+                                        <PSSubData value={data.type}/>
+                                        <PSSubData value={data.make}/>
+                                    </PSSubRow>
+                                )))
+                        }
                     </PSSubTable>
                 </PSData>
             </PSRow>
@@ -79,38 +75,32 @@ const Customer = () => {
 
             <h1>Customers</h1>
             <PSTable>
-                <PSHead>
-                    <PSRow>
-                        <PSHeader style='select'>
-                            <FormCheck />
-                        </PSHeader>
-                        <PSHeader value='Customer' />
-                        <PSHeader style='status' value='Status' />
-                        <PSHeader style='date' value='Created Date' />
-                        <PSHeader style='date' value='Modified Date' />
-                        <PSHeader style='action' value='Action' />
-                    </PSRow>
-                </PSHead>
-                <PSBody>
-                    {
-                        customerList.length === 0 ? 
-                            <PSRow key={0}>
-                                <PSData colSpan='6'>
-                                    <PSNoRecordsFound /> 
-                                </PSData>
-                            </PSRow>
-                        :
-                        customerList.map((data) => (
+                <PSRow>
+                    <PSHeader style='select'>
+                        <FormCheck />
+                    </PSHeader>
+                    <PSHeader value='Customer' />
+                    <PSHeader style='status' value='Status' />
+                    <PSHeader style='date' value='Created Date' />
+                    <PSHeader style='date' value='Modified Date' />
+                    <PSHeader style='action' value='Action' />
+                </PSRow>
+                {
+                    customerList.length === 0 ? 
+                        <PSRow>
+                            <PSData colSpan='6'>
+                                <PSNoRecordsFound /> 
+                            </PSData>
+                        </PSRow>
+                    :
+                    customerList.map((data) => (
                         <>
                             <PSRow key={data.internalID} subTable={loadTableForCustomerCars(data.name, data.cars)}>
                                 <PSData style='select' > 
                                     <FormCheck /> 
                                 </PSData>
 
-                                <PSCustomerData 
-                                    name={data.name} 
-                                    contactNo={data.contactNo} 
-                                    email={data.email} /> 
+                                <PSCustomerData name={data.name} contactNo={data.contactNo} email={data.email} /> 
 
                                 <PSData style='status'>
                                     <PSStatusBadge id={data.status} value={data.statusDescription}/>
@@ -127,11 +117,10 @@ const Customer = () => {
                                         <TrashFill />
                                     </Button>
                                 </PSData>
-                                
                             </PSRow>
                         </>
-                    ))}
-                </PSBody>
+                    ))
+                }
             </PSTable>
         </div>
     )

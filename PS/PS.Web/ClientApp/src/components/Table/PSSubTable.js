@@ -10,22 +10,6 @@ export const PSSubTable = (props) => {
     )
 }
 
-export const PSSubHead = (prop) => {
-    return (
-        <thead>
-            {prop.children}
-        </thead>
-    )
-}
-
-export const PSSubBody = (props) => {
-    return (
-        <tbody>
-            {props.children}
-        </tbody>
-    )
-}
-
 export const PSSubRow = (props) => {
     return (
         <tr className='ps-sub-tbl-row'>
