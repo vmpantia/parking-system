@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu/NavMenu.js';
 
 
-export class Layout extends Component {
-  static displayName = Layout.name;
+export class PSLayout extends Component {
+  static displayName = PSLayout.name;
 
   render() {
     return (
       <div>
         <NavMenu />
-        <Container>
+        <div className='ps-layout-container'>
           {this.props.children}
-        </Container>
+        </div>
       </div>
     );
   }
