@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Button, FormCheck } from 'react-bootstrap';
-import { EnvelopeFill, PencilSquare, TelephoneFill, TrashFill } from 'react-bootstrap-icons';
+import { Button, Col, Container, FloatingLabel, Form, FormCheck, Modal, Row } from 'react-bootstrap';
+import { EnvelopeFill, PencilSquare, PersonPlusFill, TelephoneFill, TrashFill, ZoomOut } from 'react-bootstrap-icons';
 
 //Utilities
 import { parseDate } from '../utilities/parser';
@@ -15,12 +15,13 @@ import PSNoRecordsFound from '../components/Table/PSNoRecordsFound';
 
 const Customer = () => {
     const [customerList, setCustomerList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [showLoader, setShowLoader] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
             getCustomers();
-            setIsLoading(false);
+            setShowLoader(false);
         }, 500);
     }, [])
 
@@ -34,7 +35,7 @@ const Customer = () => {
         });
     }
 
-    const loadTableForCustomerCars = (ownerName, cars) => {
+    const loadCustomerCarsTable = (ownerName, cars) => {
         return (
             <PSRow>
                 <PSData colSpan='6'>
@@ -68,12 +69,8 @@ const Customer = () => {
         )
     }
 
-    return (
-        <div>
-            {/* Loading Screen */}
-            {isLoading && <PSLoader />}
-
-            <h1>Customers</h1>
+    const loadCustomerTable = () => {
+        return (
             <PSTable>
                 <PSRow>
                     <PSHeader style='select'>
@@ -95,7 +92,7 @@ const Customer = () => {
                     :
                     customerList.map((data) => (
                         <>
-                            <PSRow key={data.internalID} subTable={loadTableForCustomerCars(data.name, data.cars)}>
+                            <PSRow key={data.internalID} subTable={loadCustomerCarsTable(data.name, data.cars)}>
                                 <PSData style='select' > 
                                     <FormCheck /> 
                                 </PSData>
@@ -122,6 +119,89 @@ const Customer = () => {
                     ))
                 }
             </PSTable>
+        );
+    }
+
+    const openModal = () => {
+        setShowModal(true);
+    }
+    const closeModal = () => {
+        setShowModal(false);
+    }
+
+    return (
+        <div>
+            <Modal size='xl' show={showModal} backdrop="static" keyboard={false} onHide={closeModal} >
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <PersonPlusFill />
+                        New Customer
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Container>
+                        <h5 className='mb-3'>Customer Information</h5>
+                        <Row className='mb-3'>
+                            <Col sm={12} lg={4}>
+                                <FloatingLabel label="First Name" className="mb-3" >
+                                        <Form.Control type="input" placeholder='First Name' />
+                                </FloatingLabel>
+                            </Col>
+                            <Col sm={12} lg={4}>
+                                <FloatingLabel label="Middle Name" className="mb-3" >
+                                        <Form.Control type="input" placeholder='Middle Name' />
+                                </FloatingLabel>
+                            </Col>
+                            <Col sm={12} lg={4}>
+                                <FloatingLabel label="Last Name" className="mb-3" >
+                                        <Form.Control type="input" placeholder='Last Name' />
+                                </FloatingLabel>
+                            </Col>
+                            <Col sm={12} lg={4}>
+                                <FloatingLabel label="Gender" className="mb-3" >
+                                    <Form.Select>
+                                        <option>Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </Form.Select>
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+                        <h5 className='mb-3'>Contact Information</h5>
+                        <Row>
+                            <Col sm={12} lg={6}>
+                                <FloatingLabel label="Contact Number" className="mb-3" >
+                                        <Form.Control type="input" placeholder='Contact Number' />
+                                </FloatingLabel>
+                            </Col>
+                            <Col sm={12} lg={6}>
+                                <FloatingLabel label="Email Address" className="mb-3" >
+                                        <Form.Control type="input" placeholder='Email Address' />
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModal}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={closeModal}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            {showLoader && <PSLoader /> /* Show Loading Screen */}
+            <h1>Customers</h1>
+            <div className='ps-container'>
+                <div className='ps-action'>
+                    <Button variant='primary' size='sm' onClick={openModal}>
+                        <PersonPlusFill />
+                        New Customer
+                    </Button>
+                </div>
+                {loadCustomerTable() /* This function will load the customers table */}
+            </div>
         </div>
     )
 }

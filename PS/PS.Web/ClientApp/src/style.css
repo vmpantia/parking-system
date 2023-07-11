@@ -1,5 +1,18 @@
-.ps-layout-container {
-    margin: 3ch;
+.ps-layout {
+    background-color: whitesmoke;
+    padding: 3ch;
+}
+
+.ps-container {
+    background-color: white;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    padding: 15px;
+    overflow: auto;
+}
+
+.ps-action {
+    margin-bottom: 5px;
 }
 
 /* Hide the default scroll bar */

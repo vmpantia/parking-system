@@ -5,11 +5,9 @@ import './PSTable.css'
 
 export const PSTable = (props) => {
     return (
-        <div className='ps-tbl-container'>
-            <table className='ps-tbl'>
-                {props.children}
-            </table>
-        </div>
+        <table className='ps-tbl'>
+            {props.children}
+        </table>
     )
 }
 

@@ -8,8 +8,7 @@ export class PSLayout extends Component {
   render() {
     return (
       <div>
-        <NavMenu />
-        <div className='ps-layout-container'>
+        <div className='ps-layout'>
           {this.props.children}
         </div>
       </div>
