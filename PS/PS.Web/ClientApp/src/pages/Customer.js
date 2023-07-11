@@ -131,6 +131,19 @@ const Customer = () => {
 
     return (
         <div>
+            {showLoader && <PSLoader /> /* Show Loading Screen */}
+            <h1>Customers</h1>
+            <div className='ps-container'>
+                <div className='ps-action'>
+                    <Button variant='primary' size='sm' onClick={openModal}>
+                        <PersonPlusFill />
+                        New Customer
+                    </Button>
+                </div>
+                {loadCustomerTable() /* This function will load the customers table */}
+            </div>
+
+            
             <Modal size='xl' show={showModal} backdrop="static" keyboard={false} onHide={closeModal} >
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -191,17 +204,6 @@ const Customer = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            {showLoader && <PSLoader /> /* Show Loading Screen */}
-            <h1>Customers</h1>
-            <div className='ps-container'>
-                <div className='ps-action'>
-                    <Button variant='primary' size='sm' onClick={openModal}>
-                        <PersonPlusFill />
-                        New Customer
-                    </Button>
-                </div>
-                {loadCustomerTable() /* This function will load the customers table */}
-            </div>
         </div>
     )
 }
