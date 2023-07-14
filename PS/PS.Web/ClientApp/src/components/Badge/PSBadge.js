@@ -1,4 +1,4 @@
-import './PSBadge.css'
+import "./PSBadge.css"
 
 export const PSStatusBadge = (props) => {
     return (

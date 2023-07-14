@@ -1,4 +1,4 @@
-import './PSLoader.css'
+import "./PSLoader.css"
 
 const PSLoader = (props) => {
     return (

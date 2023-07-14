@@ -1,9 +1,9 @@
-import './PSSubTable.css'
+import "./PSSubTable.css"
 
 export const PSSubTable = (props) => {
     return (
-        <div className='ps-sub-tbl-container'>
-            <table className='ps-sub-tbl'>
+        <div className="ps-sub-tbl-container">
+            <table className="ps-sub-tbl">
                 {props.children}
             </table>
         </div>
@@ -28,7 +28,7 @@ export const PSSubBody = (props) =>{
 
 export const PSSubRow = (props) => {
     return (
-        <tr className='ps-sub-tbl-row'>
+        <tr className="ps-sub-tbl-row">
             {props.children}
         </tr>
     )
@@ -45,7 +45,7 @@ export const PSSubHeader = (props) => {
 
 export const PSSubData = (props) => {
     return (
-        <td className='ps-sub-tbl-data' colSpan={props.colSpan}>
+        <td className="ps-sub-tbl-data" colSpan={props.colSpan}>
             {props.children}
             {props.value}
         </td>

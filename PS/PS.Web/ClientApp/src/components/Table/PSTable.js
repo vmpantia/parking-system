@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { EnvelopeFill, TelephoneFill } from 'react-bootstrap-icons'
+import { useState } from "react"
+import { EnvelopeFill, TelephoneFill } from "react-bootstrap-icons"
 
-import './PSTable.css'
+import "./PSTable.css"
 
 export const PSTable = (props) => {
     return (
-        <table className='ps-tbl'>
+        <table className="ps-tbl">
             {props.children}
         </table>
     )
@@ -65,18 +65,18 @@ export const PSData = (props) => {
 export const PSCustomerData = (props) => {
     return (
         <PSData>
-            <div className='customer-data'>
-                <span className='name'>
+            <div className="customer-data">
+                <span className="name">
                     {props.name}
                 </span>
-                <div className='other'>
+                <div className="other">
                     <span>
-                        <TelephoneFill style={{marginRight: '5px'}} />
+                        <TelephoneFill style={{marginRight: "5px"}} />
                         {props.contactNo}
                     </span>
 
                     <span>
-                        <EnvelopeFill style={{marginRight: '5px'}} />
+                        <EnvelopeFill style={{marginRight: "5px"}} />
                         {props.email}
                     </span>
                 </div>

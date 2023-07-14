@@ -6,11 +6,11 @@ const AppRoutes = [
     element: <CustomerList />
   },
   {
-    path: '/counter',
+    path: "/counter",
     element: <CustomerList />
   },
   {
-    path: '/fetch-data',
+    path: "/fetch-data",
     element: <CustomerList />
   }
 ];

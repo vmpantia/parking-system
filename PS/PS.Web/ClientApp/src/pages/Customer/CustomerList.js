@@ -1,18 +1,18 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Button, FormCheck} from 'react-bootstrap';
-import { PencilSquare, PersonPlusFill, TrashFill, } from 'react-bootstrap-icons';
+import axios from "axios"
+import React, { useEffect, useState } from "react"
+import { Button, FormCheck} from "react-bootstrap";
+import { PencilSquare, PersonPlusFill, TrashFill, } from "react-bootstrap-icons";
 
 //Utilities
-import { parseDate } from '../../utilities/parser';
+import { parseDate } from "../../utilities/parser";
 
 //Components
-import PSLoader from '../../components/Loader/PSLoader.js';
-import { PSTable, PSHead, PSBody, PSRow, PSHeader, PSData, PSIconWithSpan, PSCustomerData } from '../../components/Table/PSTable';
-import { PSStatusBadge } from '../../components/Badge/PSBadge';
-import { PSSubBody, PSSubData, PSSubHead, PSSubHeader, PSSubRow, PSSubTable } from '../../components/Table/PSSubTable';
-import PSNoRecordsFound from '../../components/Table/PSNoRecordsFound';
-import CustomerInfo from './CustomerInfo';
+import PSLoader from "../../components/Loader/PSLoader.js";
+import { PSTable, PSHead, PSBody, PSRow, PSHeader, PSData, PSIconWithSpan, PSCustomerData } from "../../components/Table/PSTable";
+import { PSStatusBadge } from "../../components/Badge/PSBadge";
+import { PSSubBody, PSSubData, PSSubHead, PSSubHeader, PSSubRow, PSSubTable } from "../../components/Table/PSSubTable";
+import PSNoRecordsFound from "../../components/Table/PSNoRecordsFound";
+import CustomerInfo from "./CustomerInfo";
 
 const CustomerList = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -27,7 +27,7 @@ const CustomerList = () => {
     }, [])
 
     const getCustomers = () => {
-        axios.get('api/Customer/GetCustomers')
+        axios.get("api/Customer/GetCustomers")
         .then(res => { 
             setCustomerList(res.data);
         })
@@ -39,21 +39,21 @@ const CustomerList = () => {
     const loadCustomerCarsTable = (ownerName, cars) => {
         return (
             <PSRow>
-                <PSData colSpan='6'>
+                <PSData colSpan="6">
                     <PSSubTable>
                         <PSSubHead >
                             <PSSubRow>
-                                <PSSubHeader value='Plate No.'/>
-                                <PSSubHeader value='Year Model'/>
-                                <PSSubHeader value='Color'/>
-                                <PSSubHeader value='Type'/>
-                                <PSSubHeader value='Make'/>
+                                <PSSubHeader value="Plate No."/>
+                                <PSSubHeader value="Year Model"/>
+                                <PSSubHeader value="Color"/>
+                                <PSSubHeader value="Type"/>
+                                <PSSubHeader value="Make"/>
                             </PSSubRow>
                         </PSSubHead>
                         <PSSubBody>
                             {cars === null || cars.length === 0 ?
                                 (<PSSubRow>
-                                        <PSSubData colSpan='5'>
+                                        <PSSubData colSpan="5">
                                             <PSNoRecordsFound /> 
                                         </PSSubData>
                                 </PSSubRow>)
@@ -79,21 +79,21 @@ const CustomerList = () => {
             <PSTable>
                 <PSHead>
                     <PSRow>
-                        <PSHeader style='select'>
+                        <PSHeader style="select">
                             <FormCheck />
                         </PSHeader>
-                        <PSHeader value='Customer' />
-                        <PSHeader style='status' value='Status' />
-                        <PSHeader style='date' value='Created Date' />
-                        <PSHeader style='date' value='Modified Date' />
-                        <PSHeader style='action' value='Action' />
+                        <PSHeader value="Customer" />
+                        <PSHeader style="status" value="Status" />
+                        <PSHeader style="date" value="Created Date" />
+                        <PSHeader style="date" value="Modified Date" />
+                        <PSHeader style="action" value="Action" />
                     </PSRow>
                 </PSHead>
                 <PSBody>
                     {
                         customerList.length === 0 ? 
                             <PSRow>
-                                <PSData colSpan='6'>
+                                <PSData colSpan="6">
                                     <PSNoRecordsFound /> 
                                 </PSData>
                             </PSRow>
@@ -101,24 +101,24 @@ const CustomerList = () => {
                         customerList.map((data) => (
                             <>
                                 <PSRow key={data.internalID} subTable={loadCustomerCarsTable(data.name, data.cars)}>
-                                    <PSData style='select' > 
+                                    <PSData style="select" > 
                                         <FormCheck /> 
                                     </PSData>
 
                                     <PSCustomerData name={data.name} contactNo={data.contactNo} email={data.email} /> 
 
-                                    <PSData style='status'>
+                                    <PSData style="status">
                                         <PSStatusBadge id={data.status} value={data.statusDescription}/>
                                     </PSData>
 
-                                    <PSData style='date' value={parseDate(data.createdDate)} />
-                                    <PSData style='date' value={parseDate(data.modifiedDate)} />
+                                    <PSData style="date" value={parseDate(data.createdDate)} />
+                                    <PSData style="date" value={parseDate(data.modifiedDate)} />
 
-                                    <PSData style='action'>
-                                        <Button variant='outline-primary' size='sm' style={{marginRight: '5px'}}>
+                                    <PSData style="action">
+                                        <Button variant="outline-primary" size="sm" style={{marginRight: "5px"}}>
                                             <PencilSquare />
                                         </Button>
-                                        <Button variant='outline-danger' size='sm'>
+                                        <Button variant="outline-danger" size="sm">
                                             <TrashFill />
                                         </Button>
                                     </PSData>
@@ -142,9 +142,9 @@ const CustomerList = () => {
         <div>
             <PSLoader show={showLoader} />
             <h1>Customers</h1>
-            <div className='ps-container'>
-                <div className='ps-action'>
-                    <Button variant='primary' size='sm' onClick={onClickedOpenModal}>
+            <div className="ps-container">
+                <div className="ps-action">
+                    <Button variant="primary" size="sm" onClick={onClickedOpenModal}>
                         <PersonPlusFill />
                         New Customer
                     </Button>
