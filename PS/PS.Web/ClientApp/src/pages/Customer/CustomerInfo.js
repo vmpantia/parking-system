@@ -55,7 +55,7 @@ const CustomerInfo = (props) => {
                                 register={register("lastName", {
                                     required: "Last Name field is required.",
                                 })}
-                                error={errors.firstName}
+                                error={errors.lastName}
                             />
                             <FormDrownDownField 
                                 mdCol="4"
