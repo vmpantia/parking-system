@@ -1,17 +1,17 @@
-import Customer from "./pages/Customer";
+import CustomerList from "./pages/Customer/CustomerList";
 
 const AppRoutes = [
   {
     index: true,
-    element: <Customer />
+    element: <CustomerList />
   },
   {
     path: '/counter',
-    element: <Customer />
+    element: <CustomerList />
   },
   {
     path: '/fetch-data',
-    element: <Customer />
+    element: <CustomerList />
   }
 ];
 

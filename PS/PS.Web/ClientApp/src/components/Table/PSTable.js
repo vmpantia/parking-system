@@ -11,6 +11,22 @@ export const PSTable = (props) => {
     )
 }
 
+export const PSHead = (props) =>{
+    return (
+        <thead>
+            {props.children}
+        </thead>
+    )
+}
+
+export const PSBody = (props) =>{
+    return (
+        <tbody>
+            {props.children}
+        </tbody>
+    )
+}
+
 export const PSRow = (props) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
