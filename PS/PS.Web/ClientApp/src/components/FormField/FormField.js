@@ -1,6 +1,8 @@
 import React from "react"
 import { Col, Form } from "react-bootstrap"
 
+import '../FormField/FormField.css'
+
 export const FormInputTextField = (props) => {
     return (
         <Form.Group className="mb-3" as={Col} md={props.mdCol} controlId={props.name}>
@@ -15,9 +17,9 @@ export const FormInputTextField = (props) => {
                 isInvalid={props.error}
             />
             {props.error && (
-                <Form.Control.Feedback type="invalid">
+                <span className="ps-field-error">
                     {props.error.message}
-                </Form.Control.Feedback>
+                </span>
             )}
         </Form.Group>
     )
@@ -42,9 +44,9 @@ export const FormDrownDownField = (props) => {
                 ))}
             </Form.Control>
             {props.error && (
-                <Form.Control.Feedback type="invalid">
+                <span className="ps-field-error">
                     {props.error.message}
-                </Form.Control.Feedback>
+                </span>
             )}
         </Form.Group>
     );

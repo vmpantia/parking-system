@@ -1,0 +1,9 @@
+.ps-field-error{
+    background-color: #dc3545;
+    color:white;
+    font-size: 13px;
+    padding: 1px 5px;
+    border-radius: 5px;
+    float: right;
+    margin-top: 5px;
+}
