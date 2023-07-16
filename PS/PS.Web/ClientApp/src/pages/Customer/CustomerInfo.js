@@ -1,7 +1,7 @@
 import React from "react"
 import { Button, Col, Container, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import { PersonPlusFill } from "react-bootstrap-icons";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { FormDrownDownField, FormEmailTextField, FormInputTextField } from "../../components/FormField/FormField";
 
 const CustomerInfo = (props) => {
@@ -9,14 +9,25 @@ const CustomerInfo = (props) => {
         register,
         handleSubmit,
         formState: { errors },
+        clearErrors,
+        control
     } =  useForm();
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "items"
+    });
 
     const onSubmit = (data) => {
         console.log(data);
     };
+    const onClickedCloseModal = () => {
+        clearErrors();
+        props.handlerCloseModal();
+    }
     
     return (
-        <Modal size="xl" show={props.show} backdrop="static" keyboard={false} onHide={props.handlerCloseModal} >
+        <Modal size="lg" show={props.show} backdrop="static" keyboard={false} onHide={onClickedCloseModal} >
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -92,7 +103,7 @@ const CustomerInfo = (props) => {
                                     name="email"
                                     placeHolder="Enter your Email Address"
                                     register={register("email", {
-                                        required: "Email field is required.",
+                                        required: "Email Address field is required.",
                                         pattern: {
                                         value: /^\S+@\S+$/i,
                                         message: "Email Address is not valid.",
@@ -101,10 +112,34 @@ const CustomerInfo = (props) => {
                                     error={errors.email}
                                 />
                         </Row>
+                        <h5 className="mb-3">Cars Information</h5>
+                        <Row>
+                            {fields.map((field, index) => (
+                                    <div key={field.id}>
+                                    <FormInputTextField
+                                        mdCol="6"
+                                        type="text"
+                                        label="* zxc"
+                                        name={`items[${index}].name`}
+                                        placeHolder="Enter your zxc"
+                                        register={register(`items[${index}].name`, {
+                                            required: "zxc field is required.",
+                                        })}
+                                        error={errors.items?.[index]?.name}
+                                    />
+                                    <button type="button" onClick={() => remove(index)}>
+                                        Remove
+                                    </button>
+                                    </div>
+                                ))}
+                                <button type="button" onClick={() => append({ name: "" })}>
+                                    Add Item
+                                </button>
+                        </Row>
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" size="sm" onClick={props.handlerCloseModal}>
+                    <Button variant="secondary" size="sm" onClick={onClickedCloseModal}>
                         Close
                     </Button>
                     <Button type="submit" variant="primary" size="sm">
