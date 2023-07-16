@@ -1,33 +1,62 @@
-import React from "react"
-import { Button, Col, Container, Form, InputGroup, Modal, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react"
+import { Button, Container, Form, Modal, Row } from "react-bootstrap";
 import { PersonPlusFill } from "react-bootstrap-icons";
 import { useFieldArray, useForm } from "react-hook-form";
-import { FormDrownDownField, FormEmailTextField, FormInputTextField } from "../../components/FormField/FormField";
+import { NIL as emptyUuid } from 'uuid';
+
+//Components
+import { FormDrownDownField, FormInputTextField } from "../../components/FormField/FormField";
 
 const CustomerInfo = (props) => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        clearErrors,
-        control
-    } =  useForm();
+    const defaultCustomerInfo = {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        gender: "",
+        contactNo: "",
+        email: "",
+        carList: [],
+    }
 
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "items"
-    });
+    const [customerInfo, setCustomerInfo] = useState(defaultCustomerInfo);
+    const { register, handleSubmit, formState: { errors }, control, reset, clearErrors } =  useForm({ defaultValues: customerInfo });
+    const { fields, append, remove } = useFieldArray({ control, name: "carList" });
+
+    useEffect(() => {
+        reset(customerInfo);
+    }, [customerInfo, reset]);
+
+    useEffect(() => {
+        populateCustomerInfo();
+    }, [props]);
+
+    const populateCustomerInfo = () => {
+        console.log(props.internalID);
+        if(props.internalID == null || props.internalID === emptyUuid)
+            setCustomerInfo(defaultCustomerInfo);
+        else
+            setCustomerInfo({
+                firstName: "tae",
+                middleName: "tae",
+                lastName: "tae",
+                gender: "Male",
+                contactNo: "tae",
+                email: "tae",
+                carList: [],
+            });
+    };
 
     const onSubmit = (data) => {
         console.log(data);
     };
-    const onClickedCloseModal = () => {
+
+    const onCloseModal = () => {
         clearErrors();
-        props.handlerCloseModal();
-    }
+        props.handleCloseModal();
+    };
     
     return (
-        <Modal size="lg" show={props.show} backdrop="static" keyboard={false} onHide={onClickedCloseModal} >
+        <Modal size="lg" show={props.show} backdrop="static" keyboard={false} onHide={onCloseModal} >
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -55,6 +84,7 @@ const CustomerInfo = (props) => {
                                 type="text"
                                 label="Middle Name"
                                 name="middleName"
+                                register={register("middleName")}
                                 placeHolder="Enter your Middle Name"
                             />
                             <FormInputTextField
@@ -83,6 +113,7 @@ const CustomerInfo = (props) => {
                                 ]}
                             />
                         </Row>
+                        
                         <h5 className="mb-3">Contact Information</h5>
                         <Row className="mb-3">
                             <FormInputTextField
@@ -112,6 +143,7 @@ const CustomerInfo = (props) => {
                                     error={errors.email}
                                 />
                         </Row>
+
                         <h5 className="mb-3">Cars Information</h5>
                         <Row>
                             {fields.map((field, index) => (
@@ -120,12 +152,12 @@ const CustomerInfo = (props) => {
                                         mdCol="6"
                                         type="text"
                                         label="* zxc"
-                                        name={`items[${index}].name`}
+                                        name={`carList[${index}].name`}
                                         placeHolder="Enter your zxc"
-                                        register={register(`items[${index}].name`, {
+                                        register={register(`carList[${index}].name`, {
                                             required: "zxc field is required.",
                                         })}
-                                        error={errors.items?.[index]?.name}
+                                        error={errors.carList?.[index]?.name}
                                     />
                                     <button type="button" onClick={() => remove(index)}>
                                         Remove
@@ -139,7 +171,7 @@ const CustomerInfo = (props) => {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" size="sm" onClick={onClickedCloseModal}>
+                    <Button variant="secondary" size="sm" onClick={onCloseModal}>
                         Close
                     </Button>
                     <Button type="submit" variant="primary" size="sm">

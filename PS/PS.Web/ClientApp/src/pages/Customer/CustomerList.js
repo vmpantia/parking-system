@@ -2,13 +2,13 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { Button, FormCheck} from "react-bootstrap";
 import { PencilSquare, PersonPlusFill, TrashFill, } from "react-bootstrap-icons";
-
+import { v4 as uuidv4, NIL as emptyUuid } from 'uuid';
 //Utilities
 import { parseDate } from "../../utilities/parser";
 
 //Components
 import PSLoader from "../../components/Loader/PSLoader.js";
-import { PSTable, PSHead, PSBody, PSRow, PSHeader, PSData, PSIconWithSpan, PSCustomerData } from "../../components/Table/PSTable";
+import { PSTable, PSHead, PSBody, PSRow, PSHeader, PSData, PSCustomerData } from "../../components/Table/PSTable";
 import { PSStatusBadge } from "../../components/Badge/PSBadge";
 import { PSSubBody, PSSubData, PSSubHead, PSSubHeader, PSSubRow, PSSubTable } from "../../components/Table/PSSubTable";
 import PSNoRecordsFound from "../../components/Table/PSNoRecordsFound";
@@ -18,6 +18,7 @@ const CustomerList = () => {
     const [customerList, setCustomerList] = useState([]);
     const [showLoader, setShowLoader] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [customerInternalID, setCustomerInternalID] = useState(emptyUuid);
 
     useEffect(() => {
         setTimeout(() => {
@@ -131,8 +132,9 @@ const CustomerList = () => {
         );
     }
 
-    const onClickedOpenModal = () => {
+    const onClickedOpenModal = (internalID) => {
         setShowModal(true);
+        setCustomerInternalID(internalID);
     }
     const onClickedCloseModal = () => {
         setShowModal(false);
@@ -144,14 +146,16 @@ const CustomerList = () => {
             <h1>Customers</h1>
             <div className="ps-container">
                 <div className="ps-action">
-                    <Button variant="primary" size="sm" onClick={onClickedOpenModal}>
+                    <Button variant="primary" size="sm" onClick={() => onClickedOpenModal(uuidv4())}>
                         <PersonPlusFill />
                         New Customer
                     </Button>
                 </div>
                 {loadCustomerTable()}
             </div>
-            <CustomerInfo show={showModal} handlerCloseModal={onClickedCloseModal}  />
+            <CustomerInfo show={showModal} 
+                          internalID={customerInternalID} 
+                          handleCloseModal={onClickedCloseModal} />
         </div>
     )
 }
