@@ -2,7 +2,8 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { Button, FormCheck} from "react-bootstrap";
 import { PencilSquare, PersonPlusFill, TrashFill, } from "react-bootstrap-icons";
-import { v4 as uuidv4, NIL as emptyUuid } from 'uuid';
+import { NIL as emptyUuid } from 'uuid';
+
 //Utilities
 import { parseDate } from "../../utilities/parser";
 
@@ -13,12 +14,13 @@ import { PSStatusBadge } from "../../components/Badge/PSBadge";
 import { PSSubBody, PSSubData, PSSubHead, PSSubHeader, PSSubRow, PSSubTable } from "../../components/Table/PSSubTable";
 import PSNoRecordsFound from "../../components/Table/PSNoRecordsFound";
 import CustomerInfo from "./CustomerInfo";
+import { SaveCustomerInfoDTO } from "../../models/dto";
 
 const CustomerList = () => {
     const [customerList, setCustomerList] = useState([]);
+    const [customerInfo, setCustomerInfo] = useState(SaveCustomerInfoDTO)
     const [showLoader, setShowLoader] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [customerInternalID, setCustomerInternalID] = useState(emptyUuid);
 
     useEffect(() => {
         setTimeout(() => {
@@ -116,7 +118,7 @@ const CustomerList = () => {
                                     <PSData style="date" value={parseDate(data.modifiedDate)} />
 
                                     <PSData style="action">
-                                        <Button variant="outline-primary" size="sm" style={{marginRight: "5px"}}>
+                                        <Button variant="outline-primary" size="sm" style={{marginRight: "5px"}} onClick={() => onClickedOpenModal(data.internalID)} >
                                             <PencilSquare />
                                         </Button>
                                         <Button variant="outline-danger" size="sm">
@@ -133,8 +135,18 @@ const CustomerList = () => {
     }
 
     const onClickedOpenModal = (internalID) => {
+        if(internalID === emptyUuid)
+            setCustomerInfo(SaveCustomerInfoDTO);
+        else {
+            axios.get(`api/Customer/GetCustomerByID?internalID=${internalID}`)
+            .then(res => { 
+                setCustomerInfo(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
         setShowModal(true);
-        setCustomerInternalID(internalID);
     }
     const onClickedCloseModal = () => {
         setShowModal(false);
@@ -146,7 +158,7 @@ const CustomerList = () => {
             <h1>Customers</h1>
             <div className="ps-container">
                 <div className="ps-action">
-                    <Button variant="primary" size="sm" onClick={() => onClickedOpenModal(uuidv4())}>
+                    <Button variant="primary" size="sm" onClick={() => onClickedOpenModal(emptyUuid)}>
                         <PersonPlusFill />
                         New Customer
                     </Button>
@@ -154,7 +166,7 @@ const CustomerList = () => {
                 {loadCustomerTable()}
             </div>
             <CustomerInfo show={showModal} 
-                          internalID={customerInternalID} 
+                          data={customerInfo} 
                           handleCloseModal={onClickedCloseModal} />
         </div>
     )

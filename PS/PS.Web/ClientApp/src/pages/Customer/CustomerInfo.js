@@ -2,54 +2,21 @@ import React, { useEffect, useState } from "react"
 import { Button, Container, Form, Modal, Row } from "react-bootstrap";
 import { PersonPlusFill } from "react-bootstrap-icons";
 import { useFieldArray, useForm } from "react-hook-form";
-import { NIL as emptyUuid } from 'uuid';
 
 //Components
 import { FormDrownDownField, FormInputTextField } from "../../components/FormField/FormField";
 
 const CustomerInfo = (props) => {
-    const defaultCustomerInfo = {
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        gender: "",
-        contactNo: "",
-        email: "",
-        carList: [],
-    }
-
-    const [customerInfo, setCustomerInfo] = useState(defaultCustomerInfo);
-    const { register, handleSubmit, formState: { errors }, control, reset, clearErrors } =  useForm({ defaultValues: customerInfo });
+    const { register, handleSubmit, formState: { errors }, control, reset, clearErrors } = useForm({  defaultValues: props.data });
     const { fields, append, remove } = useFieldArray({ control, name: "carList" });
 
     useEffect(() => {
-        reset(customerInfo);
-    }, [customerInfo, reset]);
-
-    useEffect(() => {
-        populateCustomerInfo();
-    }, [props]);
-
-    const populateCustomerInfo = () => {
-        console.log(props.internalID);
-        if(props.internalID == null || props.internalID === emptyUuid)
-            setCustomerInfo(defaultCustomerInfo);
-        else
-            setCustomerInfo({
-                firstName: "tae",
-                middleName: "tae",
-                lastName: "tae",
-                gender: "Male",
-                contactNo: "tae",
-                email: "tae",
-                carList: [],
-            });
-    };
+        reset(props.data);
+    }, [props.data, reset]);
 
     const onSubmit = (data) => {
         console.log(data);
     };
-
     const onCloseModal = () => {
         clearErrors();
         props.handleCloseModal();
@@ -108,8 +75,8 @@ const CustomerInfo = (props) => {
                                 error={errors.gender}
                                 options={[ 
                                     {value: "", label: "Select Gender"},
-                                    {value: "Male", label: "Male"},
-                                    {value: "Female", label: "Female"}
+                                    {value: "MALE", label: "MALE"},
+                                    {value: "FEMALE", label: "FEMALE"}
                                 ]}
                             />
                         </Row>
