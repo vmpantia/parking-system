@@ -7,7 +7,7 @@ export const FormInputTextField = (props) => {
     return (
         <Form.Group className="mb-3" as={Col} md={props.mdCol} controlId={props.name}>
             <Form.Label>{props.label}</Form.Label>
-            <Form.Control
+            <Form.Control className="ps-field"
                 type={props.type}
                 name={props.name}
                 placeholder={props.placeHolder}

@@ -10,20 +10,23 @@ const CustomerInfo = (props) => {
     const { register, handleSubmit, formState: { errors }, control, reset, clearErrors } = useForm({  defaultValues: props.data });
     const { fields, append, remove } = useFieldArray({ control, name: "carList" });
 
+    //Execute the function below once the props.data changed
     useEffect(() => {
         reset(props.data);
     }, [props.data, reset]);
 
+    //Execute the function below once the props.show changed
+    useEffect(() => {
+        reset();
+        clearErrors();
+    }, [props.show]);
+
     const onSubmit = (data) => {
         console.log(data);
     };
-    const onCloseModal = () => {
-        clearErrors();
-        props.handleCloseModal();
-    };
     
     return (
-        <Modal size="lg" show={props.show} backdrop="static" keyboard={false} onHide={onCloseModal} >
+        <Modal size="lg" show={props.show} backdrop="static" keyboard={false} onHide={props.handleCloseModal} >
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -138,7 +141,7 @@ const CustomerInfo = (props) => {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" size="sm" onClick={onCloseModal}>
+                    <Button variant="secondary" size="sm" onClick={props.handleCloseModal}>
                         Close
                     </Button>
                     <Button type="submit" variant="primary" size="sm">

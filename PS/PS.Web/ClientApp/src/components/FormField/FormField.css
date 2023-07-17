@@ -7,3 +7,11 @@
     float: right;
     margin-top: 10px;
 }
+
+.ps-field {
+    text-transform: uppercase;
+}
+
+.ps-field::placeholder {
+    text-transform: none;
+}
