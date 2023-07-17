@@ -1,6 +1,6 @@
 import { NIL as emptyUuid } from 'uuid';
 
-export const CustomerInfoDTO = {
+export const SaveCustomerDTO = {
     internalID: emptyUuid,
     firstName: "",
     middleName: "",

@@ -14,7 +14,7 @@ import { PSStatusBadge } from "../../components/Badge/PSBadge";
 import { PSSubBody, PSSubData, PSSubHead, PSSubHeader, PSSubRow, PSSubTable } from "../../components/Table/PSSubTable";
 import PSNoRecordsFound from "../../components/Table/PSNoRecordsFound";
 import CustomerInfo from "./CustomerInfo";
-import { CustomerInfoDTO } from "../../models/dto";
+import { CustomerInfoDTO, SaveCustomerDTO } from "../../models/dto";
 
 const CustomerList = () => {
     const [customerList, setCustomerList] = useState([]);
@@ -136,7 +136,7 @@ const CustomerList = () => {
 
     const onClickedOpenModal = (internalID) => {
         if(internalID === emptyUuid)
-            setCustomerInfo(CustomerInfoDTO);
+            setCustomerInfo(SaveCustomerDTO);
         else {
             axios.get(`api/Customer/GetCustomerByID?internalID=${internalID}`)
             .then(res => { 
@@ -149,7 +149,6 @@ const CustomerList = () => {
         setShowModal(true);
     }
     const onClickedCloseModal = () => {
-        setCustomerInfo(CustomerInfoDTO);
         setShowModal(false);
     }
 
