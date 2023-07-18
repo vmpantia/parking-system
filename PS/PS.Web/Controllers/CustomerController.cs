@@ -57,7 +57,7 @@ namespace PS.Web.Controllers
         }
 
         [HttpPost("SaveCustomer")]
-        public async Task<IActionResult> SaveCustomerAsync([FromForm] SaveCustomerDto inputCustomer)
+        public async Task<IActionResult> SaveCustomerAsync(SaveCustomerDto inputCustomer)
         {
             try
             {

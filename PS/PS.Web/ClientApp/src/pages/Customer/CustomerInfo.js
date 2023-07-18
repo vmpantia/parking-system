@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Button, Container, Form, Modal, Row } from "react-bootstrap";
 import { PersonPlusFill } from "react-bootstrap-icons";
 import { useFieldArray, useForm } from "react-hook-form";
+import axios from "axios";
 
 //Components
 import { FormDrownDownField, FormInputTextField } from "../../components/FormField/FormField";
@@ -25,9 +26,21 @@ const CustomerInfo = (props) => {
         reset();
         clearErrors();
     }, [props.show]);
-    
+
+    function getFormData(formData, data) {
+        for (const key in data) {
+            formData.append(key, data[key]);
+        }
+    }
+
     const onSubmit = (data) => {
-        console.log(data);
+        axios.post("api/Customer/SaveCustomer", data)
+        .then(res => { 
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     };
     
     return (
