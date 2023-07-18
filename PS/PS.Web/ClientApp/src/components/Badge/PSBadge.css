@@ -7,15 +7,15 @@
     padding: 1px 5px;
 }
 
-.status-0 {
+.status-enabled {
     color: white;
     background-color: rgb(31, 158, 31);
 }
-.status-1 {
+.status-disabled {
     color: white;
     background-color: rgb(131, 125, 125);
 }
-.status-2 {
+.status-for.deletion {
     color: white;
     background-color: rgb(235, 77, 77);
 }

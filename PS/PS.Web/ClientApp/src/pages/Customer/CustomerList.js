@@ -62,7 +62,8 @@ const CustomerList = () => {
                                 </PSSubRow>)
                                 :
                                 (cars.map(data => (
-                                        <PSSubRow key={data.internalID}>
+                                        <PSSubRow key={data.id}>
+                                            <PSSubData value={data.plateNo}/>
                                             <PSSubData value={data.yearModel}/>
                                             <PSSubData value={data.color}/>
                                             <PSSubData value={data.type}/>
@@ -103,22 +104,22 @@ const CustomerList = () => {
                         :
                         customerList.map((data) => (
                             <>
-                                <PSRow key={data.internalID} subTable={loadCustomerCarsTable(data.name, data.cars)}>
+                                <PSRow key={data.id} subTable={loadCustomerCarsTable(data.name, data.cars)}>
                                     <PSData style="select" > 
                                         <FormCheck /> 
                                     </PSData>
 
-                                    <PSCustomerData name={data.name} contactNo={data.contactNo} email={data.email} /> 
+                                    <PSCustomerData name={data.fullName} contactNo={data.contactNo} email={data.email} /> 
 
                                     <PSData style="status">
-                                        <PSStatusBadge id={data.status} value={data.statusDescription}/>
+                                        <PSStatusBadge id={data.status} value={data.status}/>
                                     </PSData>
 
-                                    <PSData style="date" value={parseDate(data.createdDate)} />
-                                    <PSData style="date" value={parseDate(data.modifiedDate)} />
+                                    <PSData style="date" value={data.createdDate} />
+                                    <PSData style="date" value={data.modifiedDate} />
 
                                     <PSData style="action">
-                                        <Button variant="outline-primary" size="sm" style={{marginRight: "5px"}} onClick={() => onClickedOpenModal(data.internalID)} >
+                                        <Button variant="outline-primary" size="sm" style={{marginRight: "5px"}} onClick={() => onClickedOpenModal(data.id)} >
                                             <PencilSquare />
                                         </Button>
                                         <Button variant="outline-danger" size="sm">
@@ -138,7 +139,7 @@ const CustomerList = () => {
         if(internalID === emptyUuid)
             setCustomerInfo(SaveCustomerDTO);
         else {
-            axios.get(`api/Customer/GetCustomerByID?internalID=${internalID}`)
+            axios.get(`api/Customer/GetCustomerByID?id=${internalID}`)
             .then(res => { 
                 setCustomerInfo(res.data);
             })
