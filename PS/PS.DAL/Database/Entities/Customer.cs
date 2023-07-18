@@ -5,7 +5,7 @@ namespace PS.DAL.Database.Entities
     public class Customer
     {
         [Key]
-        public Guid InternalID { get; set; }
+        public Guid ID { get; set; }
 
         [Required, StringLength(50)] 
         public string FirstName { get; set; }
@@ -31,5 +31,7 @@ namespace PS.DAL.Database.Entities
         public DateTime CreatedDate { get; set; }
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

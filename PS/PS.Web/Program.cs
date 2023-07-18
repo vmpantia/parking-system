@@ -22,7 +22,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 #region Services
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IService<CustomerDTO>, CustomerService>();
+builder.Services.AddScoped<IService, CustomerService>();
 #endregion
 
 builder.Services.AddControllersWithViews();

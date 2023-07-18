@@ -17,6 +17,11 @@ namespace PS.DAL.Repositories
             _table = context.Set<TEntity>();
         }
 
+        public DbSet<TEntity> Table
+        {
+            get { return _table; }
+        }
+
         public IEnumerable<TEntity> GetAll()
         {
             return _table.AsNoTracking();
@@ -27,11 +32,11 @@ namespace PS.DAL.Repositories
             return _table.Where(condition);
         }
 
-        public TEntity GetByID(Guid InternalID)
+        public TEntity GetByID(Guid id)
         {
-            var result = _table.Find(InternalID);
+            var result = _table.Find(id);
             if (result == null)
-                throw new DALException(string.Format("ID {0} is not found in the system.", InternalID));
+                throw new DALException(string.Format("ID {0} is not found in the system.", id));
 
             return result;
         }

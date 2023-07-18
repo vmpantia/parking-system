@@ -2,12 +2,12 @@
 
 namespace PS.BAL.Contractors
 {
-    public interface IService<TDto> where TDto : class
+    public interface IService
     {
-        IEnumerable<TDto> GetAll();
-        IEnumerable<TDto> GetByQuery(string query);
-        TDto GetByID(Guid internalID);
-        Task SaveDataAsync(TDto inputData);
-        Task DeleteDataAsync(TDto inputData);
+        IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetByQuery<T>(string query);
+        T GetByID<T>(Guid id);
+        Task SaveDataAsync<T>(T inputData);
+        Task DeleteDataByIDAsync(Guid id);
     }
 }

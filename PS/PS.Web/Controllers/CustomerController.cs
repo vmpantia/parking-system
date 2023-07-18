@@ -9,8 +9,8 @@ namespace PS.Web.Controllers
     [ApiController]
     public class CustomerController : BaseController
     {
-        private readonly IService<CustomerDTO> _customer;
-        public CustomerController(ILogger<BaseController> logger, IService<CustomerDTO> customer) : base(logger)
+        private readonly IService _customer;
+        public CustomerController(ILogger<BaseController> logger, IService customer) : base(logger)
         {
             _customer = customer;
         }
@@ -20,7 +20,7 @@ namespace PS.Web.Controllers
         {
             try
             {
-                var result = _customer.GetAll();
+                var result = _customer.GetAll<CustomerDTO>();
                 return OkResult(result);
             }
             catch (Exception ex) {
@@ -33,7 +33,7 @@ namespace PS.Web.Controllers
         {
             try
             {
-                var result = _customer.GetByQuery(query);
+                var result = _customer.GetByQuery<CustomerDTO>(query);
                 return OkResult(result);
             }
             catch (Exception ex)
@@ -43,11 +43,11 @@ namespace PS.Web.Controllers
         }
 
         [HttpGet("GetCustomerByID")]
-        public IActionResult GetCustomersByQuery([FromQuery] Guid internalID)
+        public IActionResult GetCustomerByID([FromQuery] Guid id)
         {
             try
             {
-                var result = _customer.GetByID(internalID);
+                var result = _customer.GetByID<SaveCustomerDto>(id);
                 return OkResult(result);
             }
             catch (Exception ex)
@@ -57,7 +57,7 @@ namespace PS.Web.Controllers
         }
 
         [HttpPost("SaveCustomer")]
-        public async Task<IActionResult> SaveCustomerAsync([FromForm] CustomerDTO inputCustomer)
+        public async Task<IActionResult> SaveCustomerAsync([FromForm] SaveCustomerDto inputCustomer)
         {
             try
             {
@@ -71,11 +71,11 @@ namespace PS.Web.Controllers
         }
 
         [HttpPost("DeleteCustomer")]
-        public async Task<IActionResult> DeleteCustomerAsync([FromForm] CustomerDTO inputCustomer)
+        public async Task<IActionResult> DeleteCustomerAsync([FromQuery] Guid id)
         {
             try
             {
-                await _customer.DeleteDataAsync(inputCustomer);
+                await _customer.DeleteDataByIDAsync(id);
                 return OkResult("Your request has been process successfully!");
             }
             catch (Exception ex)

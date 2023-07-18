@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PS.DAL.Database.Entities
 {
     public class Car
     {
         [Key]
-        public Guid InternalID { get; set; }
+        public Guid ID { get; set; }
 
-        public Guid Customer_InternalID { get; set; } /*Related to Customer*/
+        public Guid CustomerID { get; set; } /*Related to Customer*/
 
         [Required, StringLength(15)] 
         public string PlateNo { get; set; }
@@ -31,5 +32,7 @@ namespace PS.DAL.Database.Entities
         public DateTime CreatedDate { get; set; }
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+
+        public virtual Customer Customer { get; set; }
     }
 }

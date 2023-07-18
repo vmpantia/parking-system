@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using PS.BAL.Contractors;
 using PS.BAL.CustomExceptions;
-using PS.BAL.Models;
 using PS.DAL.Contractors;
 using PS.DAL.Database.Entities;
 
 namespace PS.BAL.Services
 {
-    public class CustomerService : IService<CustomerDTO>
+    public class CustomerService : IService
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
@@ -17,35 +16,35 @@ namespace PS.BAL.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<CustomerDTO> GetAll()
+        public IEnumerable<T> GetAll<T>()
         {
             var result = _uow.CustomerRepository.GetAll().OrderBy(data => data.LastName);
-            return _mapper.Map<IEnumerable<CustomerDTO>>(result);
+            return _mapper.Map<IEnumerable<T>>(result);
         }
 
-        public IEnumerable<CustomerDTO> GetByQuery(string query)
+        public IEnumerable<T> GetByQuery<T>(string query)
         {
             var result = _uow.CustomerRepository.GetByExpression(data => data.FirstName == query ||
                                                                          data.MiddleName == query ||
                                                                          data.LastName == query ||
                                                                          data.ContactNo == query ||
                                                                          data.Email == query);
-            return _mapper.Map<IEnumerable<CustomerDTO>>(result);
+            return _mapper.Map<IEnumerable<T>>(result);
         }
 
-        public CustomerDTO GetByID(Guid internalID)
+        public T GetByID<T>(Guid id)
         {
-            var result = _uow.CustomerRepository.GetByID(internalID);
-            return _mapper.Map<CustomerDTO>(result);
+            var result = _uow.CustomerRepository.GetByID(id);
+            return _mapper.Map<T>(result);
         }
 
-        public async Task SaveDataAsync(CustomerDTO inputCustomer)
+        public async Task SaveDataAsync<T>(T inputData)
         {
-            if (inputCustomer == null)
+            if (inputData == null)
                 throw new BALException("Customer must have values, Please try again.");
 
-            var isAdd = inputCustomer.InternalID == Guid.Empty;
-            var customer = _mapper.Map<Customer>(inputCustomer);
+            var customer = _mapper.Map<Customer>(inputData);
+            var isAdd = customer.ID == Guid.Empty;
 
             if (isAdd) /*Add new information*/
             {
@@ -65,10 +64,20 @@ namespace PS.BAL.Services
             await _uow.SaveChangesAsync();
         }
 
-        public async Task DeleteDataAsync(CustomerDTO inputCustomer)
+        public async Task DeleteDataByIDAsync(Guid id)
         {
-            var customer = _mapper.Map<Customer>(inputCustomer);
+            var customer = _uow.CustomerRepository.GetByID(id);
+
+            //Delete Customer
             _uow.CustomerRepository.Delete(customer);
+
+            //Delete Customer Cars
+            var cars = _uow.CarRepository.GetByExpression(data => data.CustomerID == customer.ID);
+            foreach(var car in cars)
+            {
+                _uow.CarRepository.Delete(car);
+            }
+
             await _uow.SaveChangesAsync();
         }
     }
