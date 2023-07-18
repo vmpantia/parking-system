@@ -8,7 +8,7 @@ import { FormDrownDownField, FormInputTextField } from "../../components/FormFie
 
 const CustomerInfo = (props) => {
     const { register, handleSubmit, formState: { errors }, control, reset, clearErrors } = useForm({  defaultValues: props.data });
-    const { fields, append, remove } = useFieldArray({ control, name: "carList" });
+    const { fields, append, remove } = useFieldArray({ control, name: "cars" });
 
     //Execute the function below once the props.data changed
     useEffect(() => {
@@ -17,10 +17,15 @@ const CustomerInfo = (props) => {
 
     //Execute the function below once the props.show changed
     useEffect(() => {
+        //Remove all fields in useFieldArray
+        fields.map((index) =>{
+            remove(index);
+        })
+
         reset();
         clearErrors();
     }, [props.show]);
-
+    
     const onSubmit = (data) => {
         console.log(data);
     };
@@ -118,23 +123,34 @@ const CustomerInfo = (props) => {
                         <Row>
                             {fields.map((field, index) => (
                                     <div key={field.id}>
-                                    <FormInputTextField
-                                        mdCol="6"
-                                        type="text"
-                                        label="* zxc"
-                                        name={`carList[${index}].name`}
-                                        placeHolder="Enter your zxc"
-                                        register={register(`carList[${index}].name`, {
-                                            required: "zxc field is required.",
-                                        })}
-                                        error={errors.carList?.[index]?.name}
-                                    />
-                                    <button type="button" onClick={() => remove(index)}>
-                                        Remove
-                                    </button>
+                                        <FormInputTextField
+                                            mdCol="6"
+                                            type="text"
+                                            label="* Plate No."
+                                            name={`cars[${index}].plateNo`}
+                                            placeHolder="Enter your zxc"
+                                            register={register(`cars[${index}].plateNo`, {
+                                                required: "zxc field is required.",
+                                            })}
+                                            error={errors.cars?.[index]?.plateNo}
+                                        />
+                                        <FormInputTextField
+                                            mdCol="6"
+                                            type="text"
+                                            label="* Year Model"
+                                            name={`cars[${index}].yearModel`}
+                                            placeHolder="Enter your zxc"
+                                            register={register(`cars[${index}].yearModel`, {
+                                                required: "zxc field is required.",
+                                            })}
+                                            error={errors.cars?.[index]?.yearModel}
+                                        />
+                                        <button type="button" onClick={() => remove(index)}>
+                                            Remove
+                                        </button>
                                     </div>
                                 ))}
-                                <button type="button" onClick={() => append({ name: "" })}>
+                                <button type="button" onClick={() => append({ plateNo: "" })}>
                                     Add Item
                                 </button>
                         </Row>
