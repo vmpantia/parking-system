@@ -4,8 +4,8 @@ namespace PS.BAL.Models
 {
     public class SaveCarDto
     {
-        public Guid InternalID { get; set; }
-        public Guid Customer_InternalID { get; set; }
+        public Guid ID { get; set; }
+        public Guid CustomerID { get; set; }
 
         [Required, StringLength(15)]
         public string PlateNo { get; set; }

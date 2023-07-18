@@ -2,7 +2,7 @@
 {
     public class CustomerDTO
     {
-        public Guid InternalID { get; set; }
+        public Guid ID { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }
         public string ContactNo { get; set; }

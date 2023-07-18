@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PS.BAL.Contractors;
 using PS.BAL.CustomExceptions;
 using PS.DAL.Contractors;
 using PS.DAL.Database.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PS.BAL.Services
 {
@@ -18,23 +20,27 @@ namespace PS.BAL.Services
 
         public IEnumerable<T> GetAll<T>()
         {
-            var result = _uow.CustomerRepository.GetAll().OrderBy(data => data.LastName);
+            var result = _uow.CustomerRepository.Table
+                .Include(data => data.Cars)
+                .OrderBy(data => data.LastName);
             return _mapper.Map<IEnumerable<T>>(result);
         }
 
         public IEnumerable<T> GetByQuery<T>(string query)
         {
-            var result = _uow.CustomerRepository.GetByExpression(data => data.FirstName == query ||
-                                                                         data.MiddleName == query ||
-                                                                         data.LastName == query ||
-                                                                         data.ContactNo == query ||
-                                                                         data.Email == query);
+            var result = _uow.CustomerRepository.Table
+                .Where(data => data.FirstName == query ||  data.MiddleName == query || data.LastName == query ||
+                               data.ContactNo == query || data.Email == query)
+                .Include(data => data.Cars);
             return _mapper.Map<IEnumerable<T>>(result);
         }
 
         public T GetByID<T>(Guid id)
         {
-            var result = _uow.CustomerRepository.GetByID(id);
+            var result = _uow.CustomerRepository.Table
+                .Where(data => data.ID == id)
+                .Include(data => data.Cars)
+                .FirstOrDefault();
             return _mapper.Map<T>(result);
         }
 

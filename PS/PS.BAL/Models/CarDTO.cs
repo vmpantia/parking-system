@@ -5,7 +5,8 @@ namespace PS.BAL.Models
 {
     public class CarDTO
     {
-        public Guid InternalID { get; set; }
+        public Guid ID { get; set; }
+        public Guid CustomerID { get; set; }
         public string CustomerFullName { get; set; }
         public string PlateNo { get; set; }
         public string YearModel { get; set; }

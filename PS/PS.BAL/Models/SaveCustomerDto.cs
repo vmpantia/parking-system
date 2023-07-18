@@ -4,7 +4,7 @@ namespace PS.BAL.Models
 {
     public class SaveCustomerDto
     {
-        public Guid InternalID { get; set; }
+        public Guid ID { get; set; }
 
         [Required, StringLength(50)]
         public string FirstName { get; set; }
