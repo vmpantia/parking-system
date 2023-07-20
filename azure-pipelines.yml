@@ -24,7 +24,7 @@ stages:
     condition: succeeded('Dev')
     jobs:
       - job: QAJob
-      - deployment: 'QA Deployment'
+      - deployment: QADeployment
         environment: 'QA'
         strategy:
           runOnce:
@@ -40,7 +40,7 @@ stages:
     condition: succeeded('Dev')
     jobs:
       - job: UATJob
-      - deployment: 'UAT Deployment'
+      - deployment: UATDeployment
         environment: 'UAT'
         strategy:
           runOnce:
