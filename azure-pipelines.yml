@@ -18,14 +18,18 @@ stages:
   - stage: Dev
     jobs:
       - job: DevJob
+        steps:
+          - task: Maven@4
 
   - stage: QA
     dependsOn: Dev
+    condition: succeeded('Dev')
     jobs:
       - job: QAJob
 
   - stage: UAT
     dependsOn: Dev
+    condition: succeeded('Dev')
     jobs:
       - job: UATJob
     
@@ -33,6 +37,7 @@ stages:
     dependsOn:
       - QA
       - UAT
+    condition: succeeded('QA', 'UAT')
     jobs:
       - job: PRODJob
 
