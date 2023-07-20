@@ -113,7 +113,6 @@ stages:
     jobs:
       - job: PRODDeploy
         displayName: 'PROD Deployment'
-        pool: server
         steps:
 
         #This step will ask an permission first before proceeding in the deployment in PROD
