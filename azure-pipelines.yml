@@ -14,11 +14,10 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- script: echo Hello, World!
-  displayName: 'Run a script without stage explictly defined'
-- bash: echo "Hello word"
-
 stages:
   - stage: stageA
+    jobs:
+      - job: jobA
   - stage: stageB
+    jobs:
+      - job: jobB
