@@ -21,7 +21,7 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Restore dependencies
-      run: dotnet restore PS.sln
+      run: dotnet restore '**/*.sln'
       
     - name: Build
       run: dotnet build '**/*.sln' --no-restore
