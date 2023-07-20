@@ -16,8 +16,10 @@ variables:
 
 stages:
   - stage: stageA
+    displayName: 'This is stage A'
     jobs:
       - job: jobA
   - stage: stageB
+    displayName: 'This is stage B'
     jobs:
       - job: jobB
