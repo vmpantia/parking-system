@@ -18,38 +18,23 @@ stages:
   - stage: Dev
     jobs:
       - job: DevJob
+        steps:
+        - task: ManualValidation@0
+          inputs:
+            notifyUsers: 'vincent.m.pantia@hotmail.com'
+            instructions: 'To resume you must review and approve this process.'
 
   - stage: QA
     dependsOn: Dev
     condition: succeeded('Dev')
     jobs:
       - job: QAJob
-      - deployment: QADeployment
-        environment: 'QA'
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - script: echo "Deploying to QA"
-        # Add manual approval
-        dependsOn: QAJob
-        condition: succeeded()
 
   - stage: UAT
     dependsOn: Dev
     condition: succeeded('Dev')
     jobs:
       - job: UATJob
-      - deployment: UATDeployment
-        environment: 'UAT'
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - script: echo "Deploying to QA"
-        # Add manual approval
-        dependsOn: UATJob
-        condition: succeeded()
     
   - stage: PROD
     dependsOn:
@@ -58,8 +43,6 @@ stages:
     condition: succeeded('QA', 'UAT')
     jobs:
       - job: PRODJob
-
-    
 
 #  - stage: stageC
 #    displayName: 'This is stage C'
