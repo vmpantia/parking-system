@@ -65,6 +65,24 @@ stages:
     jobs:
       - job: QADeploy
         displayName: 'QA Deployment'
+        steps:
+        
+        #This step will download the published artifact
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            artifactName: 'files'
+            downloadPath: '$(build.artifactstagingdirectory)'
+            
+        #This step will deploy the published artifact based on the publish profile below
+        #- task: AzureWebApp@1
+        #  inputs:
+        #    azureSubscription: ''
+        #    appType: 'webApp'
+        #    appName: 'myapp'
+        #    package: '$(Build.ArtifactStagingDirectory)/myapp.zip'
+        #    deploymentMethod: 'zipDeploy'
+        #    slotName: 'production'
+        #    publishProfile: $(WebAppPublishProfile)
 
   - stage: UAT
     displayName: 'Deploy to UAT'
@@ -78,12 +96,18 @@ stages:
         
         #This step will ask an permission first before proceeding in the deployment in UAT
         - task: ManualValidation@0
-          displayName: 'Manual Validation'
+          displayName: 'Approve UAT Deployment?'
           inputs:
             notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'Do you want to deploy the changes in UAT?'
             onTimeout: reject
-    
+        
+        #This step will download the published artifact
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            artifactName: 'files'
+            downloadPath: '$(build.artifactstagingdirectory)'
+            
   - stage: PROD
     displayName: 'Deploy to PROD'
     dependsOn: UAT
@@ -96,8 +120,14 @@ stages:
 
         #This step will ask an permission first before proceeding in the deployment in PROD
         - task: ManualValidation@0
-          displayName: 'Manual Validation'
+          displayName: 'Approve PROD Deployment?'
           inputs:
             notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'Do you want to deploy the changes in PROD?'
             onTimeout: reject
+          
+        #This step will download the published artifact
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            artifactName: 'files'
+            downloadPath: '$(build.artifactstagingdirectory)'
