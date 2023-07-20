@@ -1,10 +1,5 @@
-# ASP.NET
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
-
-#trigger:
-#- main
+trigger:
+- main
 
 pool:
   vmImage: 'windows-latest'
@@ -64,39 +59,45 @@ stages:
           condition: succeeded()
 
   - stage: QA
+    displayName: 'Deploy to QA'
     dependsOn: Build
-    condition: succeeded()
+    condition: succeeded('Build')
     jobs:
-      - job: QAJob
+      - job: QADeploy
+        displayName: 'QA Deployment'
 
   - stage: UAT
-    dependsOn: Build
-    condition: succeeded()
+    displayName: 'Deploy to UAT'
+    dependsOn: QA
+    condition: succeeded('QA')
     jobs:
-      - job: UATJob
+      - job: UATDeploy
+        displayName: 'UAT Deployment'
         pool: server
         steps:
+        
+        #This step will ask an permission first before proceeding in the deployment in UAT
         - task: ManualValidation@0
           displayName: 'Manual Validation'
           inputs:
             notifyUsers: 'vincent.m.pantia@gmail.com'
-            instructions: 'To resume you must review and approve this process.'
+            instructions: 'Do you want to deploy the changes in UAT?'
             onTimeout: reject
     
   - stage: PROD
-    dependsOn:
-      - QA
-      - UAT
-    condition: succeeded('QA', 'UAT')
+    displayName: 'Deploy to PROD'
+    dependsOn: UAT
+    condition: succeeded('UAT')
     jobs:
-      - job: PRODJob
+      - job: PRODDeploy
+        displayName: 'PROD Deployment'
+        pool: server
+        steps:
 
-#  - stage: stageC
-#    displayName: 'This is stage C'
-#    jobs:
-#      - job: jobC
-
-#  - stage: stageD
-#    displayName: 'This is stage D'
-#    jobs:
-#      - job: jobD
+        #This step will ask an permission first before proceeding in the deployment in PROD
+        - task: ManualValidation@0
+          displayName: 'Manual Validation'
+          inputs:
+            notifyUsers: 'vincent.m.pantia@gmail.com'
+            instructions: 'Do you want to deploy the changes in PROD?'
+            onTimeout: reject
