@@ -33,14 +33,14 @@ stages:
             arguments: '--configuration $(buildConfiguration)'
 
   - stage: QA
-    dependsOn: Dev
-    condition: succeeded('Dev')
+    dependsOn: Preparation
+    condition: succeeded()
     jobs:
       - job: QAJob
 
   - stage: UAT
-    dependsOn: Dev
-    condition: succeeded('Dev')
+    dependsOn: Preparation
+    condition: succeeded()
     jobs:
       - job: UATJob
         pool: server
