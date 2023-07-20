@@ -91,7 +91,8 @@ stages:
     jobs:
       - job: UATDeploy
         displayName: 'UAT Deployment'
-        pool: server
+        pool:
+          vmImage: 'windows-latest'
         steps:
         
         #This step will ask an permission first before proceeding in the deployment in UAT
