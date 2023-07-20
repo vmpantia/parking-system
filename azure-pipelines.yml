@@ -43,6 +43,7 @@ stages:
     condition: succeeded('Dev')
     jobs:
       - job: UATJob
+        pool: server
         steps:
         - task: ManualValidation@0
           displayName: 'Manual Validation'
