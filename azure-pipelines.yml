@@ -15,17 +15,22 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-  - stage: Dev
+  - stage: Preparation
     jobs:
-      - job: DevJob
-        pool: server
+      - job: PreparationJob
+        displayName: 'Preparations'
         steps:
-        - task: ManualValidation@0
-          displayName: 'Manual Validation'
+        - task: DotNetCoreCLI@2
+          displayName: 'Restore NuGet Packages'
           inputs:
-            notifyUsers: 'vincent.m.pantia@gmail.com'
-            instructions: 'To resume you must review and approve this process.'
-            onTimeout: reject
+            command: 'restore'
+            projects: $(solution)
+            feedsToUse: 'select'
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'build'
+            projects: $(solution)
+            arguments: '--configuration $(buildConfiguration)'
 
   - stage: QA
     dependsOn: Dev
@@ -38,6 +43,13 @@ stages:
     condition: succeeded('Dev')
     jobs:
       - job: UATJob
+        steps:
+        - task: ManualValidation@0
+          displayName: 'Manual Validation'
+          inputs:
+            notifyUsers: 'vincent.m.pantia@gmail.com'
+            instructions: 'To resume you must review and approve this process.'
+            onTimeout: reject
     
   - stage: PROD
     dependsOn:
