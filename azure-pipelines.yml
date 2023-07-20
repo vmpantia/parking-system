@@ -94,10 +94,9 @@ stages:
         steps:
         
         #This step will ask an permission first before proceeding in the deployment in UAT
-        - task: ManualValidation@0
+        - task: ManualIntervention@8
           displayName: 'Approve UAT Deployment?'
           inputs:
-            notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'Do you want to deploy the changes in UAT?'
             onTimeout: reject
         
@@ -118,10 +117,9 @@ stages:
         steps:
 
         #This step will ask an permission first before proceeding in the deployment in PROD
-        - task: ManualValidation@0
+        - task: ManualIntervention@8
           displayName: 'Approve PROD Deployment?'
           inputs:
-            notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'Do you want to deploy the changes in PROD?'
             onTimeout: reject
           
