@@ -15,15 +15,15 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-  - stage: Preparation
+  - stage: Build
     jobs:
-      - job: PreparationJob
-        displayName: 'Preparations'
+      - job: BuildJob
+        displayName: 'Prepare Build'
         steps:
 
         # This step will restore the nuget packages of the projects or install dependencies
         - task: DotNetCoreCLI@2
-          displayName: 'Restore NuGet Packages'
+          displayName: 'Restore'
           inputs:
             command: 'restore'
             projects: $(solution)
@@ -45,14 +45,23 @@ stages:
             projects: $(solution)
             arguments: '--configuration $(buildConfiguration)'
         
-        #This step will publish and compressed it to zip file
+        #This step will generate publish file for deployment
         - task: DotNetCoreCLI@2
+          displayName: 'Publish'
           inputs:
             command: 'publish'
             publishWebProjects: true
             arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)'
             zipAfterPublish: true
 
+        #This step will store the published artifact to container
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Artifact'
+          inputs:
+            PathtoPublish: '$(build.artifactstagingdirectory)'
+            ArtifactName: 'files'
+            publishLocation: 'Container'
+          condition: succeeded()
 
   - stage: QA
     dependsOn: Preparation
