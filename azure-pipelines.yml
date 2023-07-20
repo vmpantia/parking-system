@@ -20,12 +20,12 @@ stages:
       - job: DevJob
 
   - stage: QA
-    dependsOn: QA
+    dependsOn: Dev
     jobs:
       - job: QAJob
 
   - stage: UAT
-    dependsOn: QA
+    dependsOn: Dev
     jobs:
       - job: UATJob
     
