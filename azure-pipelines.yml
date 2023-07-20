@@ -103,6 +103,7 @@ stages:
             onTimeout: reject
 
       - job: UATDepolyment
+        dependsOn: UATApproval
         displayName: 'UAT Deployment'
         steps:
         
@@ -131,6 +132,7 @@ stages:
             onTimeout: reject
 
       - job: PRODDepolyment
+        dependsOn: PRODApproval
         displayName: 'PROD Deployment'
         steps:
         
