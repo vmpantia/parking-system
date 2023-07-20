@@ -15,22 +15,24 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-  - stage: stageA
-    displayName: 'This is stage A'
+  - stage: QA
     jobs:
-      - job: jobA
-      
-  - stage: stageB
-    displayName: 'This is stage B'
-    jobs:
-      - job: jobB
+      - job: QAJob
 
-  - stage: stageC
-    displayName: 'This is stage C'
+  - stage: PROD
     jobs:
-      - job: jobC
+      - job: PRODJob
 
-  - stage: stageD
-    displayName: 'This is stage D'
+  - stage: Test
     jobs:
-      - job: jobD
+      -  job: TestJob
+
+#  - stage: stageC
+#    displayName: 'This is stage C'
+#    jobs:
+#      - job: jobC
+
+#  - stage: stageD
+#    displayName: 'This is stage D'
+#    jobs:
+#      - job: jobD
