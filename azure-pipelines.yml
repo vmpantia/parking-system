@@ -3,8 +3,8 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
-trigger:
-- main
+#trigger:
+#- main
 
 pool:
   vmImage: 'windows-latest'
@@ -15,18 +15,28 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
+  - stage: Dev
+    jobs:
+      - job: DevJob
+
   - stage: QA
+    dependsOn: QA
     jobs:
       - job: QAJob
 
+  - stage: UAT
+    dependsOn: QA
+    jobs:
+      - job: UATJob
+    
   - stage: PROD
+    dependsOn:
+      - QA
+      - UAT
     jobs:
       - job: PRODJob
 
-  - stage: Test
-    dependsOn: QA
-    jobs:
-      -  job: TestJob
+    
 
 #  - stage: stageC
 #    displayName: 'This is stage C'
