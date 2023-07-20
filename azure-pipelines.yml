@@ -64,13 +64,13 @@ stages:
           condition: succeeded()
 
   - stage: QA
-    dependsOn: Preparation
+    dependsOn: Build
     condition: succeeded()
     jobs:
       - job: QAJob
 
   - stage: UAT
-    dependsOn: Preparation
+    dependsOn: Build
     condition: succeeded()
     jobs:
       - job: UATJob
