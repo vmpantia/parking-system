@@ -24,6 +24,7 @@ stages:
           inputs:
             notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'To resume you must review and approve this process.'
+            onTimeout: reject
 
   - stage: QA
     dependsOn: Dev
