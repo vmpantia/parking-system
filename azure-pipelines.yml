@@ -89,8 +89,8 @@ stages:
     dependsOn: QA
     condition: succeeded('QA')
     jobs:
-      - job: UATDeploy
-        displayName: 'UAT Deployment'
+      - job: UATApproval
+        displayName: 'UAT Approval'
         pool: server
         steps:
         
@@ -101,6 +101,10 @@ stages:
             notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'Do you want to deploy the changes in UAT?'
             onTimeout: reject
+
+      - job: UATDepolyment
+        displayName: 'UAT Deployment'
+        steps:
         
         #This step will download the published artifact
         - task: DownloadBuildArtifacts@1
@@ -113,8 +117,8 @@ stages:
     dependsOn: UAT
     condition: succeeded('UAT')
     jobs:
-      - job: PRODDeploy
-        displayName: 'PROD Deployment'
+      - job: PRODApproval
+        displayName: 'PROD Approval'
         pool: server
         steps:
 
@@ -125,7 +129,11 @@ stages:
             notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'Do you want to deploy the changes in PROD?'
             onTimeout: reject
-          
+
+      - job: PRODDepolyment
+        displayName: 'PROD Deployment'
+        steps:
+        
         #This step will download the published artifact
         - task: DownloadBuildArtifacts@1
           inputs:
