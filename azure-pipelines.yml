@@ -19,7 +19,8 @@ stages:
     jobs:
       - job: DevJob
         steps:
-        - task: ManualValidation@0.198.0
+        - task: ManualValidation@0
+          displayName: 'Manual Validation'
           inputs:
             notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'To resume you must review and approve this process.'
