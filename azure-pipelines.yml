@@ -18,6 +18,7 @@ stages:
   - stage: Dev
     jobs:
       - job: DevJob
+        pool: server
         steps:
         - task: ManualValidation@0
           displayName: 'Manual Validation'
