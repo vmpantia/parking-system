@@ -19,6 +19,7 @@ stages:
     jobs:
       - job: PreparationJob
         displayName: 'Preparations'
+        pool: server
         steps:
         - task: DotNetCoreCLI@2
           displayName: 'Restore NuGet Packages'
