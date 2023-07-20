@@ -20,17 +20,39 @@ stages:
       - job: PreparationJob
         displayName: 'Preparations'
         steps:
+
+        # This step will restore the nuget packages of the projects or install dependencies
         - task: DotNetCoreCLI@2
           displayName: 'Restore NuGet Packages'
           inputs:
             command: 'restore'
             projects: $(solution)
             feedsToUse: 'select'
+
+        #This step will build the project or solution
         - task: DotNetCoreCLI@2
+          displayName: 'Build'
           inputs:
             command: 'build'
             projects: $(solution)
             arguments: '--configuration $(buildConfiguration)'
+            
+        #This step will run the unit tests of the project
+        - task: DotNetCoreCLI@2
+          displayName: 'Test'
+          inputs:
+            command: 'test'
+            projects: $(solution)
+            arguments: '--configuration $(buildConfiguration)'
+        
+        #This step will publish and compressed it to zip file
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'publish'
+            publishWebProjects: true
+            arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)'
+            zipAfterPublish: true
+
 
   - stage: QA
     dependsOn: Preparation
