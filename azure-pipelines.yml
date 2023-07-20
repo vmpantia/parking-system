@@ -21,7 +21,7 @@ stages:
         steps:
         - task: ManualValidation@0
           inputs:
-            notifyUsers: 'vincent.m.pantia@hotmail.com'
+            notifyUsers: 'vincent.m.pantia@gmail.com'
             instructions: 'To resume you must review and approve this process.'
 
   - stage: QA
